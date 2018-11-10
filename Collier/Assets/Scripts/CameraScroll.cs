@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class CameraScroll : MonoBehaviour
 {
-    public Vector3 initial;
+    Vector3 initial;
 
-    float accMult = 0.5f;
-    float speedMult = 0.5f;
+    float accMult = 0.2f;
+    float speedMult = 0.2f;
 
     Vector2 acceleration;
     Vector2 speed;
@@ -25,16 +25,10 @@ public class CameraScroll : MonoBehaviour
     {
         Vector2 target = new Vector2(initial.x,
             GameObject.FindGameObjectWithTag("Player").transform.position.y);
-        // follow the specified object
-        // to smooth the following, use a differential equation
-        // where acceleration makes spd approach targetSpd = k1 * distanceToTravel
-        // acceleration is k2 * spdDifference
         Vector2 targetPos = target;
         Vector2 currentPos = transform.position;
-        float k1 = 0.1f;
-        Vector2 targetSpd = k1 * (targetPos - currentPos);
-        float k2 = 0.1f;
-        Vector2 acc = k2 * (targetSpd - speed);
+        Vector2 targetSpd = speedMult * (targetPos - currentPos);
+        Vector2 acc = accMult * (targetSpd - speed);
         // move the position of the camera to the calculated value
         speed += acc;
         currentPos += speed;
