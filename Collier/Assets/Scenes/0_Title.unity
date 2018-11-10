@@ -313,10 +313,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1575631334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdccaf4f867c7954f9f7b417790cddf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ff7d2eb91c62b74bb8bd94a601ee5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   townLocation: 1
+  creditsLocation: 4
 --- !u!4 &1575631336
 Transform:
   m_ObjectHideFlags: 0
@@ -432,6 +433,32 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1575631335}
+    - target: {fileID: 114216623907026682, guid: cc0367c7f1e97a24ca2a13bea53702d2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 543f0d0e8bb1b9047ae11c8a02b423b2,
+        type: 3}
+    - target: {fileID: 114340500995796526, guid: cc0367c7f1e97a24ca2a13bea53702d2,
+        type: 2}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114216623907026682, guid: cc0367c7f1e97a24ca2a13bea53702d2,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114216623907026682, guid: cc0367c7f1e97a24ca2a13bea53702d2,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114216623907026682, guid: cc0367c7f1e97a24ca2a13bea53702d2,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc0367c7f1e97a24ca2a13bea53702d2, type: 2}
   m_IsPrefabAsset: 0
