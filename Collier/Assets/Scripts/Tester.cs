@@ -13,11 +13,5 @@ public class Tester : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (TouchInput.GetSwipe() != null)
-        {
-            Swipe swipe = TouchInput.GetSwipe().Normalized(cutSize);
-            //CutAnimation c = Instantiate(cut).GetComponent<CutAnimation>();
-            //c.Initialize(swipe.start, swipe.end);
-        }
     }
 }

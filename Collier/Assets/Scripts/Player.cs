@@ -35,14 +35,15 @@ public class Player : MonoBehaviour {
             case State.FALL:
                 // go towards a wall
                 // until we touch a wall
-                if (TouchInput.GetSwipe() != null)
-                {
-                    TryCut(TouchInput.GetSwipe().direction);
-                }
+
                 break;
             case State.WALL:
                 // animation down wall
                 // check for cuts
+                if (TouchInput.GetSwipe() != null)
+                {
+                    TryCut(TouchInput.GetSwipe().direction);
+                }
                 break;
             case State.CUT:
                 // play animation, then fall
