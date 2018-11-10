@@ -13,7 +13,8 @@ public class CutAnimation : MonoBehaviour
     float timer = 0f;
 
     // cut speed
-    float cutSpd = 4f;
+    public float cutSpd = 4f;
+    public float cutWidth = 0.4f;
 
     // two points of the cut
     public Vector2 pointA;
@@ -50,7 +51,7 @@ public class CutAnimation : MonoBehaviour
         cutCurve.AddKey(1f, 0f);
 
         // set up line renderer curve
-        line.widthMultiplier = 0.4f;
+        line.widthMultiplier = cutWidth;
         line.widthCurve = cutCurve;
         line.startColor = new Color(1f, 1f, 1f, 1f);
         line.endColor = new Color(1f, 1f, 1f, 1f);
