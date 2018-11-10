@@ -40,7 +40,7 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector2 pos = transform.position;
-        anim.SetInteger("State", (int)state);
+        Debug.Log(state.ToString());
         if (GetSide() < 0)
         {
             sr.flipX = false;
@@ -61,7 +61,15 @@ public class Player : MonoBehaviour {
                 {
                     rb.position = new Vector2(rb.position.x + (driftSpeed * Time.deltaTime), rb.position.y);
                 }
-                // until we touch a wall, see OnCollisionEnter2D
+                // until we touch a wall or hit the ground
+                if (Grounded())
+                {
+                    state = State.STAND;
+                }
+                if (Walled())
+                {
+                    state = State.WALL;
+                }
                 break;
             case State.WALL:
                 // animation down wall
@@ -69,6 +77,14 @@ public class Player : MonoBehaviour {
                 if (TouchInput.GetSwipe() != null)
                 {
                     TryCut(TouchInput.GetSwipe().direction);
+                }
+                if (!Walled())
+                {
+                    state = State.FALL;
+                }
+                if (Grounded())
+                {
+                    state = State.STAND;
                 }
                 break;
             case State.CUT:
@@ -86,23 +102,15 @@ public class Player : MonoBehaviour {
                 {
                     TryCut(TouchInput.GetSwipe().direction);
                 }
+                if (!Grounded())
+                {
+                    state = State.FALL;
+                }
                 break;
             case State.HURT:
                 break;
         }
 	}
-
-    public void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Ground")
-        {
-            state = State.STAND;
-        }
-        if (col.gameObject.tag == "Wall")
-        {
-            state = State.WALL;
-        }
-    }
 
     // -1 for left, 1 for right
     int GetSide()
@@ -176,5 +184,16 @@ public class Player : MonoBehaviour {
             }
         }
         return min;
+    }
+
+    bool Grounded()
+    {
+        return Raycast((Vector2)transform.position
+            + Vector2.down * box.bounds.extents.y * 1.8f) != null;
+    }
+    bool Walled()
+    {
+        return Raycast((Vector2)transform.position + Vector2.left * box.bounds.extents.x * 1.3f) != null ||
+            Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null;
     }
 }
