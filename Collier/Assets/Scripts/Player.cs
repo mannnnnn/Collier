@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
     public enum State
     {
-        FALL, WALL, CUT, STAND, HURT
+        FALL = 0, WALL = 1, CUT = 2, STAND = 3, HURT = 4
     }
     State state = State.STAND;
 
@@ -21,21 +21,47 @@ public class Player : MonoBehaviour {
 
     Rigidbody2D rb;
 
+    public GameObject leftWall;
+    public GameObject rightWall;
+
+    public float driftSpeed = 3;
+
+    Animator anim;
+    SpriteRenderer sr;
+
 	// Use this for initialization
 	void Start () {
         box = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         Vector2 pos = transform.position;
-		switch (state)
+        anim.SetInteger("State", (int)state);
+        if (GetSide() < 0)
+        {
+            sr.flipX = false;
+        }
+        else
+        {
+            sr.flipX = true;
+        }
+        switch (state)
         {
             case State.FALL:
                 // go towards a wall
-                // until we touch a wall
-
+                if (GetSide() < 0)
+                {
+                    rb.position = new Vector2(rb.position.x - (driftSpeed * Time.deltaTime), rb.position.y);
+                }
+                else
+                {
+                    rb.position = new Vector2(rb.position.x + (driftSpeed * Time.deltaTime), rb.position.y);
+                }
+                // until we touch a wall, see OnCollisionEnter2D
                 break;
             case State.WALL:
                 // animation down wall
@@ -58,16 +84,39 @@ public class Player : MonoBehaviour {
                 // can only swipe one way
                 if (TouchInput.GetSwipe() != null)
                 {
-                    if (TouchInput.GetSwipe().direction.x > 0)
-                    {
-                        TryCut(TouchInput.GetSwipe().direction);
-                    }
+                    TryCut(TouchInput.GetSwipe().direction);
                 }
                 break;
             case State.HURT:
                 break;
         }
 	}
+
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Ground")
+        {
+            state = State.STAND;
+        }
+        if (col.gameObject.tag == "Wall")
+        {
+            state = State.WALL;
+        }
+    }
+
+    // -1 for left, 1 for right
+    int GetSide()
+    {
+        float left = leftWall.GetComponent<BoxCollider2D>().bounds.max.x;
+        float right = rightWall.GetComponent<BoxCollider2D>().bounds.min.x;
+        float leftDist = Mathf.Abs(transform.position.x - left);
+        float rightDist = Mathf.Abs(transform.position.x - right);
+        if (leftDist < rightDist)
+        {
+            return -1;
+        }
+        return 1;
+    }
 
     bool TryCut(Vector2 direction)
     {

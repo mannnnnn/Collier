@@ -102,6 +102,9 @@ MonoBehaviour:
   maxCutLength: 8
   minCutLength: 3
   cut: {fileID: 1738569053373184, guid: a573dd4a34f851345ac9afdec46298fc, type: 2}
+  leftWall: {fileID: 0}
+  rightWall: {fileID: 0}
+  driftSpeed: 1
 --- !u!212 &212168232129875930
 SpriteRenderer:
   m_ObjectHideFlags: 1
