@@ -15,13 +15,9 @@ public class Tester : MonoBehaviour {
 	void Update () {
         if (TouchInput.GetSwipe() != null)
         {
-            Debug.Log("it is done2");
-        }
-        if (TouchInput.GetSwipe() != null)
-        {
             Swipe swipe = TouchInput.GetSwipe().Normalized(cutSize);
-            CutAnimation c = Instantiate(cut).GetComponent<CutAnimation>();
-            c.Initialize(swipe.start, swipe.end);
+            //CutAnimation c = Instantiate(cut).GetComponent<CutAnimation>();
+            //c.Initialize(swipe.start, swipe.end);
         }
     }
 }

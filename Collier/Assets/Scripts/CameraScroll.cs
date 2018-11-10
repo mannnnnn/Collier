@@ -35,7 +35,7 @@ public class CameraScroll : MonoBehaviour
         Vector2 targetSpd = k1 * (targetPos - currentPos);
         float k2 = 0.1f;
         Vector2 acc = k2 * (targetSpd - speed);
-        // move the y position of the camera to the calculated value
+        // move the position of the camera to the calculated value
         speed += acc;
         currentPos += speed;
         transform.position = new Vector3(currentPos.x,

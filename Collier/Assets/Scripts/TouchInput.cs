@@ -33,10 +33,6 @@ public class TouchInput : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
-        if (swipe != null)
-        {
-            Debug.Log("it is done.");
-        }
     }
 
     public static Swipe GetSwipe()
