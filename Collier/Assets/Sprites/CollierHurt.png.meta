@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 31e4f8d8917078b43a3d99a56c60ff71
+guid: d1fe26fab445b5342b438aaac02094c0
 TextureImporter:
   fileIDToRecycleName:
-    21300000: pain_0
-    21300002: pain_1
-    21300004: pain_2
-    21300006: pain_3
+    21300000: CollierHurt_0
+    21300002: CollierHurt_1
+    21300004: CollierHurt_2
+    21300006: CollierHurt_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -49,7 +49,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -99,13 +99,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pain_0
+      name: CollierHurt_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 32
-        height: 32
+        y: 200
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,19 +113,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78cb7c246df2082469ea64b22e8fd1d6
+      spriteID: c8b8dc54eab74524f9a2ea9bb6af9000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pain_1
+      name: CollierHurt_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
+        x: 200
+        y: 200
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,19 +133,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a6f8610e23d1a94997c21053af39199
+      spriteID: f53c520db45c74f43b2f589597587607
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pain_2
+      name: CollierHurt_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,19 +153,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6189d5f457d779a43bf96edd9fb0221e
+      spriteID: 993de27942ff98f459e45d2ab5532377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pain_3
+      name: CollierHurt_3
       rect:
         serializedVersion: 2
-        x: 32
+        x: 200
         y: 0
-        width: 32
-        height: 32
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,7 +173,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7430a6a08d130441bb355dc3939f11f
+      spriteID: 8dd9299d3748a8347b49526e31449878
       vertices: []
       indices: 
       edges: []
@@ -181,7 +181,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4c8602aa06be3ce4e9d676511616af99
+    spriteID: 327d2e87715b94445b46ddd3b746b96f
     vertices: []
     indices: 
     edges: []
