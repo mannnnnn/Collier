@@ -696,6 +696,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c5dcd880f8d6c4abf3b231848dc5e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollStart: 1
+  scrolling: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1632,59 +1634,6 @@ Prefab:
     - target: {fileID: 1716995468697368, guid: be5c3bef17cb3fd4c9dfdce397a556c6, type: 2}
       propertyPath: m_Name
       value: Platform (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380209398751498, guid: be5c3bef17cb3fd4c9dfdce397a556c6, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.78000003
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380209398751498, guid: be5c3bef17cb3fd4c9dfdce397a556c6, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 212473283986332308, guid: be5c3bef17cb3fd4c9dfdce397a556c6,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Offset.x
-      value: 0.011679292
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Size.x
-      value: 2.8297222
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Offset.y
-      value: 0.06251762
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Size.y
-      value: 0.3435663
-      objectReference: {fileID: 0}
-    - target: {fileID: 61637314629479678, guid: be5c3bef17cb3fd4c9dfdce397a556c6,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0.008175373
-      objectReference: {fileID: 0}
-    - target: {fileID: 61637314629479678, guid: be5c3bef17cb3fd4c9dfdce397a556c6,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 2.9620852
-      objectReference: {fileID: 0}
-    - target: {fileID: 61637314629479678, guid: be5c3bef17cb3fd4c9dfdce397a556c6,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.015629582
-      objectReference: {fileID: 0}
-    - target: {fileID: 61637314629479678, guid: be5c3bef17cb3fd4c9dfdce397a556c6,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 0.37482727
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be5c3bef17cb3fd4c9dfdce397a556c6, type: 2}

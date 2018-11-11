@@ -181,6 +181,10 @@ public class Player : MonoBehaviour {
                 }
                 break;
         }
+        if (state == State.CUT)
+        {
+            rb.velocity = Vector2.zero;
+        }
 	}
 
     void KillEnemies(Vector2 start, Vector2 end)
@@ -246,7 +250,7 @@ public class Player : MonoBehaviour {
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
         RaycastHit2D? raycast = Raycast((Vector2)transform.position +
-            direction * dist);
+            direction * dist, "Wall", true);
         // if no collisions, go to target position
         if (raycast == null)
         {
@@ -278,7 +282,7 @@ public class Player : MonoBehaviour {
     }
 
     // find closest physics collision with player when attempting to go to target
-    public RaycastHit2D? Raycast(Vector2 target, string layer = "Wall")
+    public RaycastHit2D? Raycast(Vector2 target, string layer = "Wall", bool ignorePlatform = false)
     {
         Vector2 pos = transform.position;
         RaycastHit2D[] hits = Physics2D.RaycastAll(pos, (target - pos).normalized,
@@ -288,7 +292,7 @@ public class Player : MonoBehaviour {
         RaycastHit2D? min = null;
         foreach (RaycastHit2D hit in hits)
         {
-            if ((hit.point - pos).magnitude < minDist)
+            if ((hit.point - pos).magnitude < minDist && (!ignorePlatform || hit.collider.gameObject.tag != "Platform"))
             {
                 minDist = (hit.point - pos).magnitude;
                 min = hit;

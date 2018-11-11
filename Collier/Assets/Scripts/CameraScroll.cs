@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class CameraScroll : MonoBehaviour
 {
+    public bool scrollStart;
+    public bool scrolling;
+
     Vector3 initial;
 
     float accMult = 0.2f;
@@ -38,6 +41,10 @@ public class CameraScroll : MonoBehaviour
                 levelBottom = value;
             }
         }
+        if (scrollStart)
+        {
+            scrolling = true;
+        }
     }
 
     void Update()
@@ -60,11 +67,19 @@ public class CameraScroll : MonoBehaviour
         Vector2 targetPos = target;
         Vector2 currentPos = transform.position;
         Vector2 targetSpd = speedMult * (targetPos - currentPos);
+        if (scrolling)
+        {
+            targetSpd = new Vector2(targetSpd.x, Mathf.Clamp(targetSpd.y, -30f * Time.deltaTime, 30f * Time.deltaTime));
+        }
         Vector2 acc = accMult * (targetSpd - speed);
         // move the position of the camera to the calculated value
         speed += acc;
         currentPos += speed;
         float clampedY = Mathf.Clamp(currentPos.y, levelBottom + cameraSize * 0.5f, levelTop - cameraSize * 0.5f);
+        if (currentPos.y > levelTop - cameraSize * 0.5f)
+        {
+            scrolling = false;
+        }
         transform.position = new Vector3(currentPos.x,
             clampedY, transform.position.z);
     }

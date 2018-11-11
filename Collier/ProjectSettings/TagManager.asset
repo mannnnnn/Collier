@@ -14,6 +14,7 @@ TagManager:
   - Coins
   - Goal
   - ExitButton
+  - Platform
   layers:
   - Default
   - TransparentFX
