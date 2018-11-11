@@ -3073,3 +3073,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 2}
   maxScore: 0
+--- !u!1 &2115276239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1046678792194060, guid: 15dc190e1d0e3af4ba8b5cecc888d49e,
+    type: 2}
+  m_PrefabInternal: {fileID: 820241593}
+--- !u!114 &2115276246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2115276239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa32608e3f832c4b981a6c16b09439e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDuration: 1
