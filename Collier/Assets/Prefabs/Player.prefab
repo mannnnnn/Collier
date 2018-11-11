@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61022840792048762}
   - component: {fileID: 114209755527880742}
   - component: {fileID: 95899457866484532}
+  - component: {fileID: 114894917601840654}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -125,6 +126,18 @@ MonoBehaviour:
   rightWall: {fileID: 0}
   driftSpeed: 4
   pain: {fileID: 1839352528027234, guid: 6712d50f580691d4e99a423036537153, type: 2}
+--- !u!114 &114894917601840654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1046678792194060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa32608e3f832c4b981a6c16b09439e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDuration: 1
 --- !u!212 &212168232129875930
 SpriteRenderer:
   m_ObjectHideFlags: 1

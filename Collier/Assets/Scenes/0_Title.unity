@@ -316,8 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff7d2eb91c62b74bb8bd94a601ee5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  townLocation: 1
-  creditsLocation: 4
+  townLocation: 1_Town
 --- !u!4 &1575631336
 Transform:
   m_ObjectHideFlags: 0
