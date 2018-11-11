@@ -6372,7 +6372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 2}
-  maxScore: 12
+  maxScore: 8
   star1: {fileID: 21300000, guid: ddedee634d3078e4e82760cad4ac4451, type: 3}
   star2: {fileID: 21300000, guid: 2aea49e2d30d9d843a319d9b38774926, type: 3}
   star3: {fileID: 21300000, guid: cfe792ae5596bf442a319576cd1584d1, type: 3}
