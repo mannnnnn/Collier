@@ -16,7 +16,7 @@ public class SceneChanger : MonoBehaviour {
 	void Awake()
 	{
 		settingsScreen.SetActive(false);
-		creditScreen.SetActive(true);
+		creditScreen.SetActive(false);
 	}
 
 	public void Start () 
