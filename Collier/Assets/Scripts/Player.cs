@@ -166,7 +166,8 @@ public class Player : MonoBehaviour {
 
     void Damage(RaycastHit2D hit)
     {
-        if (damageTimer == 0)
+        Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
+        if (damageTimer == 0 && health.health > 0)
         {
             damageTimer = damageDuration;
             // set player to move away from obstacle
@@ -176,6 +177,15 @@ public class Player : MonoBehaviour {
             // sparks to indicate pain
             Instantiate(pain, transform.position + Vector3.back, transform.rotation)
                 .GetComponent<Pain>().Initialize(hit.collider.gameObject);
+            // decrement health
+            health.health--;
+            if (health.health <= 0)
+            {
+                // game over
+                box.isTrigger = true;
+                // create defeat obj
+
+            }
         }
     }
 

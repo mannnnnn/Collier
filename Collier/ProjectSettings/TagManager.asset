@@ -9,6 +9,7 @@ TagManager:
   - Wind
   - Hazard
   - Enemy
+  - Health
   layers:
   - Default
   - TransparentFX

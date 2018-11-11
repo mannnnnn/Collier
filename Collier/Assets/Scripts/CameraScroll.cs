@@ -42,7 +42,11 @@ public class CameraScroll : MonoBehaviour
 
     void Update()
     {
-        MoveCameraSmooth();
+        Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
+        if (health.health > 0)
+        {
+            MoveCameraSmooth();
+        }
     }
 
     private void MoveCameraSmooth()
