@@ -20,7 +20,7 @@ public class SceneChanger : MonoBehaviour {
 
 	public void LoadCredits ()
 	{
-		SceneManager.LoadScene(creditsLocation);
+		// TODO
 	}
 
 	public void ExitGame () 
