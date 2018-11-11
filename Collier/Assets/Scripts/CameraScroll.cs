@@ -42,8 +42,8 @@ public class CameraScroll : MonoBehaviour
 
     void Update()
     {
-        Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
-        if (health.health > 0)
+        Health health = GameObject.FindGameObjectWithTag("Health")?.GetComponent<Health>();
+        if (health == null || health.health > 0)
         {
             MoveCameraSmooth();
         }
