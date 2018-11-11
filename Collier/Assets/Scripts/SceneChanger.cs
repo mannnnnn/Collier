@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour {
-	public int townLocation = 1; // Make sure the town is build location 1
-	public int creditsLocation = 4;
+	public string townLocation = "1_Town"; // Make sure the town is build location 1
 
 	public void LoadTown () 
 	{

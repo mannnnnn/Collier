@@ -30,7 +30,7 @@ public class CameraScroll : MonoBehaviour
             }
         }
         // find bottom
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Ground"))
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Goal"))
         {
             float value = go.GetComponent<SpriteRenderer>().bounds.min.y;
             if (value < levelBottom)

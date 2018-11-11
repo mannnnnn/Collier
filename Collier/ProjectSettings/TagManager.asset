@@ -10,6 +10,9 @@ TagManager:
   - Hazard
   - Enemy
   - Health
+  - UI
+  - Coins
+  - Goal
   layers:
   - Default
   - TransparentFX

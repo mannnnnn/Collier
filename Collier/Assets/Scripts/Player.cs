@@ -34,6 +34,11 @@ public class Player : MonoBehaviour {
 
     public GameObject pain;
 
+    bool dead = false;
+    bool win = false;
+    float timer = 0f;
+    float duration = 1f;
+
 	// Use this for initialization
 	void Start () {
         box = GetComponent<BoxCollider2D>();
@@ -44,6 +49,25 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (dead || win)
+        {
+            timer += Time.deltaTime;
+            if (timer > duration)
+            {
+                if (dead)
+                {
+                    // pull the trigger piglet
+                    GameObject ui = GameObject.FindGameObjectWithTag("UI");
+                    ui.GetComponentInChildren<Defeat>(true).gameObject.SetActive(true);
+                    Destroy(gameObject);
+                }
+                if (win)
+                {
+                    GameObject ui = GameObject.FindGameObjectWithTag("UI");
+                    ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
+                }
+            }
+        }
         Vector2 pos = transform.position;
         anim.SetInteger("State", (int)state);
         if (GetSide() < 0)
@@ -160,6 +184,8 @@ public class Player : MonoBehaviour {
             if (hit.collider.gameObject.tag == "Enemy")
             {
                 Destroy(hit.collider.gameObject);
+                Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
+                coins.coins++;
             }
         }
     }
@@ -183,8 +209,7 @@ public class Player : MonoBehaviour {
             {
                 // game over
                 box.isTrigger = true;
-                // create defeat obj
-
+                dead = true;
             }
         }
     }
@@ -205,6 +230,10 @@ public class Player : MonoBehaviour {
 
     bool TryCut(Vector2 direction)
     {
+        if (dead || win)
+        {
+            return false;
+        }
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
         RaycastHit2D? raycast = Raycast((Vector2)transform.position +
@@ -257,6 +286,14 @@ public class Player : MonoBehaviour {
             }
         }
         return min;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.collider.gameObject.tag == "Goal")
+        {
+            win = true;
+        }
     }
 
     bool Grounded()

@@ -13,7 +13,10 @@ public class Platform : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        box.enabled = transform.position.y
-            < GameObject.FindGameObjectWithTag("Player").transform.position.y;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            box.enabled = transform.position.y < player.transform.position.y;
+        }
     }
 }
