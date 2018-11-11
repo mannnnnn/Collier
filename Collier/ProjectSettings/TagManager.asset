@@ -15,6 +15,7 @@ TagManager:
   - Goal
   - ExitButton
   - Platform
+  - SceneTransition
   layers:
   - Default
   - TransparentFX
