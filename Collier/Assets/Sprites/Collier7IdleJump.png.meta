@@ -1,18 +1,14 @@
 fileFormatVersion: 2
-guid: 6dbb9abe977e2b04da5d3605f3261e3c
+guid: 4316a184a5be6f74bba55cf85e1de504
 TextureImporter:
   fileIDToRecycleName:
-    21300000: collier_wall_jump_0
-    21300002: collier_wall_jump_1
-    21300004: collier_wall_jump_2
-    21300006: collier_wall_jump_3
-    21300008: collier_wall_jump_4
-    21300010: collier_wall_jump_5
-    21300012: collier_wall_jump_6
-    21300014: collier_wall_jump_7
-    21300016: collier_wall_jump_8
-    21300018: collier_wall_jump_9
-    21300020: collier_wall_jump_10
+    21300000: Collier7IdleJump_0
+    21300002: Collier7IdleJump_1
+    21300004: Collier7IdleJump_2
+    21300006: Collier7IdleJump_3
+    21300008: Collier7IdleJump_4
+    21300010: Collier7IdleJump_5
+    21300012: Collier7IdleJump_6
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -106,67 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: collier_wall_jump_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 600
-        width: 200
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c04b3901d4b3d464a84cd18802b903ef
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: collier_wall_jump_1
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 600
-        width: 200
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ccca4ebe81c36774bbf1297b3c3dc9d2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: collier_wall_jump_2
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 600
-        width: 200
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ea54b0d2e31c4844db63f9f02e393e7e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: collier_wall_jump_3
+      name: Collier7IdleJump_0
       rect:
         serializedVersion: 2
         x: 0
@@ -180,13 +116,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e72267432a05874468bc4fa65f400a65
+      spriteID: b84895fda935cc644afed2c1993c8c75
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collier_wall_jump_4
+      name: Collier7IdleJump_1
       rect:
         serializedVersion: 2
         x: 200
@@ -200,13 +136,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: acc4508621620684d899ac867d8342b3
+      spriteID: 4e756f1a7ac5d514da75742210556e29
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collier_wall_jump_5
+      name: Collier7IdleJump_2
       rect:
         serializedVersion: 2
         x: 400
@@ -220,13 +156,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9316712a985ffd040822f15e29205b06
+      spriteID: 9313988e36516f241ad188256291feaf
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collier_wall_jump_6
+      name: Collier7IdleJump_3
       rect:
         serializedVersion: 2
         x: 0
@@ -240,13 +176,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcd4f190367c5884f84de38bd2a5b68e
+      spriteID: 55b355eeba51c3e4f98c7d87c5625365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collier_wall_jump_7
+      name: Collier7IdleJump_4
       rect:
         serializedVersion: 2
         x: 200
@@ -260,13 +196,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2219729d16469242abe609732764a04
+      spriteID: c6c870b91dcb2c249976b55e1ffa22fe
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collier_wall_jump_8
+      name: Collier7IdleJump_5
       rect:
         serializedVersion: 2
         x: 400
@@ -280,13 +216,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2cd35076bb9b624d9cac194339b2c2a
+      spriteID: fc863d3258f9e1e4787699575ef90fc6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collier_wall_jump_9
+      name: Collier7IdleJump_6
       rect:
         serializedVersion: 2
         x: 0
@@ -300,27 +236,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56e4dddb1a2d9904fa8871cbe0fc26c6
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: collier_wall_jump_10
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 200
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2fba33aa8aa871d42aebc78b4cda4fb8
+      spriteID: 596620eb4bbf5dc468467a5b730c710f
       vertices: []
       indices: 
       edges: []
@@ -328,7 +244,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 191d37b951ed9214ba16f6bfe3240435
+    spriteID: 74af1ec80a0f4d24b84df15c414c11b9
     vertices: []
     indices: 
     edges: []

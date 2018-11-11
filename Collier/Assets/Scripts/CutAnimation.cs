@@ -40,6 +40,7 @@ public class CutAnimation : MonoBehaviour
     {
         this.pointA = pointA;
         this.pointB = pointB;
+        position = pointA;
 
         // set up line renderer
         line = gameObject.GetComponent<LineRenderer>();
@@ -74,7 +75,7 @@ public class CutAnimation : MonoBehaviour
         // then draw from middle point to pointB on retract
         Vector2 point = Vector2.Lerp(pointA, pointB, timer);
         // set position
-        if (state == State.CUT && Physics2D.Linecast(pointA, point))
+        if (state == State.CUT)
         {
             position = point;
         }

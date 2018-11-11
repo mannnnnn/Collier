@@ -39,11 +39,10 @@ public class Player : MonoBehaviour {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         Vector2 pos = transform.position;
-        damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
         anim.SetInteger("State", (int)state);
         if (GetSide() < 0)
         {
@@ -52,6 +51,26 @@ public class Player : MonoBehaviour {
         else
         {
             sr.flipX = true;
+        }
+        RaycastHit2D? hit = Raycast((Vector2)transform.position
+            + Vector2.down * box.bounds.extents.y * 1.4f, "Hazard");
+        if (hit != null)
+        {
+            Damage(hit.Value);
+        }
+        // if not in contact with obstacle, decrement invincibilty timer
+        else
+        {
+            bool before = damageTimer > 0;
+            damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
+            if (damageTimer == 0f && before)
+            {
+                // re-enable all obstacles
+                foreach (GameObject g in GameObject.FindGameObjectsWithTag("Hazard"))
+                {
+                    g.GetComponent<Collider2D>().isTrigger = false;
+                }
+            }
         }
         switch (state)
         {
@@ -102,9 +121,14 @@ public class Player : MonoBehaviour {
                 // if currently in cut animation, check for obstacles
                 else
                 {
-                    if (Raycast(currentCut.position, "Hazard") != null)
+                    RaycastHit2D? cutHit = Raycast(currentCut.position, "Hazard");
+                    if (cutHit != null)
                     {
-                        Damage(1);
+                        transform.position = new Vector3(currentCut.position.x,
+                            currentCut.position.y, transform.position.z);
+                        Damage(cutHit.Value);
+                        transform.position = new Vector3(currentCut.position.x,
+                            currentCut.position.y, transform.position.z);
                     }
                 }
                 break;
@@ -120,16 +144,33 @@ public class Player : MonoBehaviour {
                 }
                 break;
             case State.HURT:
+                if (damageTimer == 0)
+                {
+                    state = State.FALL;
+                }
+                if (Grounded())
+                {
+                    state = State.STAND;
+                }
                 break;
         }
 	}
 
-    void Damage(int damage)
+    void Damage(RaycastHit2D hit)
     {
         if (damageTimer == 0)
         {
             Debug.Log("Oof");
             damageTimer = damageDuration;
+            // set player to move away from obstacle
+            rb.velocity = new Vector2(5f * Mathf.Sign(transform.position.x - hit.collider.transform.position.x),
+                5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
+            state = State.HURT;
+            // disable all obstacles
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Hazard"))
+            {
+                g.GetComponent<Collider2D>().isTrigger = true;
+            }
         }
     }
 
