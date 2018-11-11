@@ -251,7 +251,7 @@ Prefab:
     - target: {fileID: 198286462502077010, guid: 83a868436982a8e4ab1d68637eaea3bc,
         type: 2}
       propertyPath: VelocityModule.speedModifier.scalar
-      value: 3
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 198286462502077010, guid: 83a868436982a8e4ab1d68637eaea3bc,
         type: 2}
@@ -336,7 +336,7 @@ Prefab:
     - target: {fileID: 198286462502077010, guid: 83a868436982a8e4ab1d68637eaea3bc,
         type: 2}
       propertyPath: ShapeModule.m_Scale.x
-      value: 10.025833
+      value: 0.97286254
       objectReference: {fileID: 0}
     - target: {fileID: 4825321024309734, guid: 83a868436982a8e4ab1d68637eaea3bc, type: 2}
       propertyPath: m_RootOrder
@@ -344,11 +344,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4825321024309734, guid: 83a868436982a8e4ab1d68637eaea3bc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.8
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 4825321024309734, guid: 83a868436982a8e4ab1d68637eaea3bc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1857832522134754, guid: 83a868436982a8e4ab1d68637eaea3bc, type: 2}
       propertyPath: m_Layer
@@ -372,7 +372,7 @@ Prefab:
     - target: {fileID: 199521960182185570, guid: 83a868436982a8e4ab1d68637eaea3bc,
         type: 2}
       propertyPath: m_SortingLayerID
-      value: -1521351893
+      value: 1851163081
       objectReference: {fileID: 0}
     - target: {fileID: 199521960182185570, guid: 83a868436982a8e4ab1d68637eaea3bc,
         type: 2}
@@ -431,7 +431,7 @@ Prefab:
     - target: {fileID: 198286462502077010, guid: 83a868436982a8e4ab1d68637eaea3bc,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 198286462502077010, guid: 83a868436982a8e4ab1d68637eaea3bc,
         type: 2}
@@ -586,6 +586,16 @@ Prefab:
         type: 2}
       propertyPath: NoiseModule.sizeAmount.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198286462502077010, guid: 83a868436982a8e4ab1d68637eaea3bc,
+        type: 2}
+      propertyPath: ShapeModule.randomDirectionAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198286462502077010, guid: 83a868436982a8e4ab1d68637eaea3bc,
+        type: 2}
+      propertyPath: autoRandomSeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83a868436982a8e4ab1d68637eaea3bc, type: 2}
