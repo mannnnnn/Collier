@@ -55,6 +55,7 @@ public class Player : MonoBehaviour {
             timer += Time.deltaTime;
             if (timer > duration)
             {
+                GameObject.FindGameObjectWithTag("ExitButton")?.SetActive(false);
                 if (dead)
                 {
                     // pull the trigger piglet
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour {
                     GameObject ui = GameObject.FindGameObjectWithTag("UI");
                     ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
                 }
+
             }
         }
         Vector2 pos = transform.position;
@@ -200,7 +202,7 @@ public class Player : MonoBehaviour {
     void Damage(RaycastHit2D hit)
     {
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
-        if (damageTimer == 0 && health.health > 0)
+        if (damageTimer == 0 && health.health > 0 && state != State.CUT)
         {
             damageTimer = damageDuration;
             // set player to move away from obstacle
