@@ -317,6 +317,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   townLocation: 1_Town
+  player: {fileID: 0}
+  openUI: 0
+  trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 2}
+  settingsScreen: {fileID: 0}
+  creditScreen: {fileID: 0}
 --- !u!4 &1575631336
 Transform:
   m_ObjectHideFlags: 0

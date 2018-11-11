@@ -10,6 +10,8 @@ public class SceneChanger : MonoBehaviour {
 	private Vector2 vel;
 	public bool openUI = false;
 
+    public GameObject trans;
+
 	public GameObject settingsScreen;
 	public GameObject creditScreen;
 
@@ -46,8 +48,9 @@ public class SceneChanger : MonoBehaviour {
 
 	public void LoadTown () 
 	{
-		SceneManager.LoadScene(townLocation);
-	}
+        Instantiate(trans).GetComponent<SceneTransition>()
+            .Initialize("1_Town");
+    }
 	
 	public void ShowCredits () {
         creditScreen.SetActive(true);
