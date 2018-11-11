@@ -81,9 +81,15 @@ public class Player : MonoBehaviour {
         }
         RaycastHit2D? hit = Raycast((Vector2)transform.position
             + Vector2.down * box.bounds.extents.y * 0.5f, "Hazard");
-        if (hit != null)
+        RaycastHit2D? enemyHitDown = Raycast((Vector2)transform.position
+            + Vector2.down * box.bounds.extents.y * 0.5f, "Enemy");
+        RaycastHit2D? enemyHitLeft = Raycast((Vector2)transform.position
+           + Vector2.left * box.bounds.extents.y * 2f, "Enemy");
+        RaycastHit2D? enemyHitRight = Raycast((Vector2)transform.position
+           + Vector2.right * box.bounds.extents.y * 2f, "Enemy");
+        if (hit != null || enemyHitDown != null || enemyHitLeft != null || enemyHitRight != null)
         {
-            Damage(hit.Value);
+            Damage((hit ?? enemyHitDown ?? enemyHitLeft ?? enemyHitRight).Value);
         }
         // if not in contact with obstacle, decrement invincibilty timer
         else
@@ -179,7 +185,7 @@ public class Player : MonoBehaviour {
     {
         Vector2 pos = transform.position;
         RaycastHit2D[] hits = Physics2D.RaycastAll(pos, (end - start).normalized,
-            (end - start).magnitude, LayerMask.GetMask("Default"));
+            (end - start).magnitude, LayerMask.GetMask("Enemy"));
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject.tag == "Enemy")

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212612770792459848}
   - component: {fileID: 95660205670745560}
   - component: {fileID: 61327655709956094}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Coni
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823587293298500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.27, y: 15.85, z: -4.098633}
+  m_LocalPosition: {x: 0.033730626, y: -1.6717993, z: -4.098633}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51,7 +51,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
