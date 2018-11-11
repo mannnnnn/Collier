@@ -121,7 +121,6 @@ public class Player : MonoBehaviour {
         }
         if (damaged && inv && invframesTimer == 0f)
         {
-            Debug.Log("undamaged");
             inv = false;
             damaged = false;
         }
@@ -334,7 +333,10 @@ public class Player : MonoBehaviour {
     {
         if (col.collider.gameObject.tag == "Goal" && SceneManager.GetActiveScene().name != "1_Town")
         {
-            win = true;
+            if (!damaged && !dead)
+            {
+                win = true;
+            }
         }
     }
 
