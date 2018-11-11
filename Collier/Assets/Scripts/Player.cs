@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
     Animator anim;
     SpriteRenderer sr;
 
+    bool damaged = false;
     float damageTimer = 0f;
     float damageDuration = 1f;
 
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour {
     bool win = false;
     float timer = 0f;
     float duration = 1f;
+
+    public float spdCap = 10f;
 
 	// Use this for initialization
 	void Start () {
@@ -72,6 +75,14 @@ public class Player : MonoBehaviour {
             }
         }
         Vector2 pos = transform.position;
+        if (rb.velocity.y < -spdCap)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -spdCap);
+        }
+        if (damaged && rb.velocity.y < -spdCap * 0.6f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -spdCap * 0.6f);
+        }
         anim.SetInteger("State", (int)state);
         if (GetSide() < 0)
         {
@@ -89,6 +100,7 @@ public class Player : MonoBehaviour {
            + Vector2.left * box.bounds.extents.y * 1f, "Enemy");
         RaycastHit2D? enemyHitRight = Raycast((Vector2)transform.position
            + Vector2.right * box.bounds.extents.y * 1f, "Enemy");
+        damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
         if (hit != null || enemyHitDown != null || enemyHitLeft != null || enemyHitRight != null)
         {
             Damage((hit ?? enemyHitDown ?? enemyHitLeft ?? enemyHitRight).Value);
@@ -96,7 +108,10 @@ public class Player : MonoBehaviour {
         // if not in contact with obstacle, decrement invincibilty timer
         else
         {
-            damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
+            if (state == State.WALL)
+            {
+                damaged = false;
+            }
         }
         switch (state)
         {
@@ -206,9 +221,10 @@ public class Player : MonoBehaviour {
     void Damage(RaycastHit2D hit)
     {
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
-        if (damageTimer == 0 && health.health > 0 && state != State.CUT)
+        if (!damaged && health.health > 0 && state != State.CUT)
         {
             damageTimer = damageDuration;
+            damaged = true;
             // set player to move away from obstacle
             rb.velocity = new Vector2(5f * -GetSide(),
                 5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
