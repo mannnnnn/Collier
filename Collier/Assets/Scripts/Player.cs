@@ -114,6 +114,7 @@ public class Player : MonoBehaviour {
                 // if currently in cut animation, check for obstacles
                 else
                 {
+                    KillEnemies(transform.position, currentCut.position);
                     RaycastHit2D? cutHit = Raycast(currentCut.position, "Hazard");
                     if (cutHit != null)
                     {
@@ -148,6 +149,20 @@ public class Player : MonoBehaviour {
                 break;
         }
 	}
+
+    void KillEnemies(Vector2 start, Vector2 end)
+    {
+        Vector2 pos = transform.position;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(pos, (end - start).normalized,
+            (end - start).magnitude, LayerMask.GetMask("Default"));
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.tag == "Enemy")
+            {
+                Destroy(hit.collider.gameObject);
+            }
+        }
+    }
 
     void Damage(RaycastHit2D hit)
     {
