@@ -17,8 +17,8 @@ public class CameraScroll : MonoBehaviour
 
     void Start()
     {
-        cameraSize = Camera.main.ScreenToWorldPoint(Vector2.zero).y
-            - Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y;
+        cameraSize = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y
+            - Camera.main.ScreenToWorldPoint(Vector2.zero).y;
         initial = transform.position;
         // find top
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Wall"))
@@ -56,15 +56,15 @@ public class CameraScroll : MonoBehaviour
         // move the position of the camera to the calculated value
         speed += acc;
         currentPos += speed;
-        float clampedY = Mathf.Clamp(currentPos.y, levelBottom - cameraSize * 0.5f, levelTop + cameraSize * 0.5f);
+        float clampedY = Mathf.Clamp(currentPos.y, levelBottom + cameraSize * 0.5f, levelTop - cameraSize * 0.5f);
         transform.position = new Vector3(currentPos.x,
             clampedY, transform.position.z);
     }
 
-    public float GetParallax(SpriteRenderer bg)
+    public float GetParallax(SpriteRenderer bg, float offset)
     {
-        float cameraPos = Mathf.InverseLerp(levelTop, levelBottom, Camera.main.ScreenToWorldPoint(Vector2.zero).y);
-        float x = Mathf.Lerp(0, bg.bounds.extents.y * 2f - cameraSize, cameraPos);
-        return Camera.main.transform.position.y + x - bg.bounds.extents.y;
+        float cameraPos = Mathf.InverseLerp(levelTop - cameraSize * 0.5f, levelBottom + cameraSize * 0.5f, Camera.main.transform.position.y);
+        float x = Mathf.Lerp(-offset, (bg.bounds.extents.y * transform.localScale.y) * 2f - cameraSize, cameraPos);
+        return Camera.main.transform.position.y + x;
     }
 }

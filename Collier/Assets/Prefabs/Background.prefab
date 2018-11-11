@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4896040629026670}
   - component: {fileID: 212220542832874468}
+  - component: {fileID: 114592011019049454}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -35,11 +36,23 @@ Transform:
   m_GameObject: {fileID: 1388495525275118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.19363058, y: 6.39, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114592011019049454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1388495525275118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860186e20bc74d64bb9794f945e36fd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: 0
 --- !u!212 &212220542832874468
 SpriteRenderer:
   m_ObjectHideFlags: 1
