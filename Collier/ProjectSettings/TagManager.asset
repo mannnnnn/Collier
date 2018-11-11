@@ -4,8 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Wall
-  - Ground
+  - Wind
   layers:
   - Default
   - TransparentFX
@@ -16,7 +15,7 @@ TagManager:
   - 
   - 
   - Wall
-  - Ground
+  - Particles
   - 
   - 
   - 
@@ -45,6 +44,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particles
+    uniqueID: 2773615403
     locked: 0
   - name: UI
     uniqueID: 2265152607
