@@ -84,9 +84,9 @@ public class Player : MonoBehaviour {
         RaycastHit2D? enemyHitDown = Raycast((Vector2)transform.position
             + Vector2.down * box.bounds.extents.y * 0.5f, "Enemy");
         RaycastHit2D? enemyHitLeft = Raycast((Vector2)transform.position
-           + Vector2.left * box.bounds.extents.y * 2f, "Enemy");
+           + Vector2.left * box.bounds.extents.y * 1f, "Enemy");
         RaycastHit2D? enemyHitRight = Raycast((Vector2)transform.position
-           + Vector2.right * box.bounds.extents.y * 2f, "Enemy");
+           + Vector2.right * box.bounds.extents.y * 1f, "Enemy");
         if (hit != null || enemyHitDown != null || enemyHitLeft != null || enemyHitRight != null)
         {
             Damage((hit ?? enemyHitDown ?? enemyHitLeft ?? enemyHitRight).Value);

@@ -79,6 +79,10 @@ public class CutAnimation : MonoBehaviour
         {
             position = point;
         }
+        else
+        {
+            position = pointB;
+        }
         // change line renderer points
         Vector3[] positions = new Vector3[7];
         for (int i = 0; i < positions.Length; i++)
