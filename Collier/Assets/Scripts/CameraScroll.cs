@@ -47,6 +47,10 @@ public class CameraScroll : MonoBehaviour
         {
             MoveCameraSmooth();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void MoveCameraSmooth()

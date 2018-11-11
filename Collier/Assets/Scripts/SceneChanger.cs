@@ -8,15 +8,21 @@ public class SceneChanger : MonoBehaviour {
 	public string townLocation = "1_Town"; // Make sure the town is build location 1
 	public Rigidbody2D player;
 	private Vector2 vel;
-	private bool openUI = false;
+	public bool openUI = false;
 
 	public GameObject settingsScreen;
 	public GameObject creditScreen;
 
 	void Awake()
 	{
-		settingsScreen.SetActive(false);
-		creditScreen.SetActive(false);
+        if (settingsScreen != null)
+        {
+            settingsScreen.SetActive(false);
+        }
+        if (creditScreen != null)
+        {
+            creditScreen.SetActive(false);
+        }
 	}
 
 	public void Start () 
@@ -30,68 +36,32 @@ public class SceneChanger : MonoBehaviour {
 		}
 	}
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
 	public void LoadTown () 
 	{
 		SceneManager.LoadScene(townLocation);
 	}
-
-	public void OpenMenu ()
-	{
-		if(!openUI) {
-			vel = player.velocity;
-			player.velocity = new Vector2 (0, 0);
-			openUI = true;
-
-			if (EventSystem.current.currentSelectedGameObject.name == "Exit") 
-			{
-				HandleExit();
-			}
-			else if (EventSystem.current.currentSelectedGameObject.name == "Settings")
-			{
-				ShowSettings();
-			}
-			else if (EventSystem.current.currentSelectedGameObject.name == "Credits")
-			{
-				ShowCredits();
-			}
-		} 
-		else 
-		{	
-
-			player.velocity = vel;
-			openUI = false;
-
-		}
-
-
-	}
-
-	private void ToggleMenu () {
-		if (creditScreen.active) {
-			creditScreen.SetActive(true);
-		}
-		if (settingsScreen.active) {
-			settingsScreen.SetActive(true);
-		}
-	}
-
-	private void ShowSettings () {
-		ToggleMenu();
-		settingsScreen.SetActive(false);
-	}
 	
-	private void ShowCredits () {
-
-		creditScreen.SetActive(true);
+	public void ShowCredits () {
+        creditScreen.SetActive(true);
+        openUI = true;
 	}
 
-	private void HandleExit () 
+	public void HandleExit () 
 	{
-		if (openUI) 
-		{
-			ToggleMenu();
-		} 
-		else if(SceneManager.GetActiveScene().name == "1_Town")
+        if (creditScreen.activeSelf)
+        {
+            creditScreen.SetActive(false);
+            openUI = false;
+        }
+		else if (SceneManager.GetActiveScene().name == "1_Town")
 		{
 			Application.Quit();
 		} 

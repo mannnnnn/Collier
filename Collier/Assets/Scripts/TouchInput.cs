@@ -23,7 +23,8 @@ public class TouchInput : MonoBehaviour
             down = false;
             timer = 0f;
             end = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (timer < maxDuration && (end - start).magnitude > 0.1f)
+            SceneChanger sc = GameObject.FindGameObjectWithTag("UI")?.GetComponent<SceneChanger>();
+            if (timer < maxDuration && (end - start).magnitude > 0.1f && (sc == null || !sc.openUI))
             {
                 swipe = new Swipe(start, end);
             }
