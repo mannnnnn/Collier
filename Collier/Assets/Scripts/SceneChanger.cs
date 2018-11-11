@@ -67,21 +67,20 @@ public class SceneChanger : MonoBehaviour {
 	}
 
 	private void ToggleMenu () {
-		
-	}
-
-	private void ShowSettings () {
 		if (creditScreen.active) {
 			creditScreen.SetActive(true);
 		}
+		if (settingsScreen.active) {
+			settingsScreen.SetActive(true);
+		}
+	}
 
+	private void ShowSettings () {
+		ToggleMenu();
 		settingsScreen.SetActive(false);
 	}
 	
 	private void ShowCredits () {
-		if (settingsScreen.active) {
-			settingsScreen.SetActive(true);
-		}
 
 		creditScreen.SetActive(true);
 	}
@@ -90,7 +89,7 @@ public class SceneChanger : MonoBehaviour {
 	{
 		if (openUI) 
 		{
-			OpenMenu();
+			ToggleMenu();
 		} 
 		else if(SceneManager.GetActiveScene().name == "1_Town")
 		{
