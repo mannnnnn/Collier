@@ -1668,8 +1668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: Level_2
-  trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 2}
-  spr: {fileID: 0}
+  trans: {fileID: 1254156901464538, guid: 4c094f018f812ce40afdfb0f79792c39, type: 2}
+  spr: {fileID: 21300000, guid: 5076e9068f3ceb1489f6990d6113ce41, type: 3}
 --- !u!1 &1196314442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,8 +1940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: Level_3
-  trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 2}
-  spr: {fileID: 0}
+  trans: {fileID: 1254156901464538, guid: 4c094f018f812ce40afdfb0f79792c39, type: 2}
+  spr: {fileID: 21300000, guid: 9f8ae219e95ed7f47b495f5471474d0b, type: 3}
 --- !u!1 &1237283304
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,8 +2065,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: Level_1
-  trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 2}
-  spr: {fileID: 21300000, guid: 543f0d0e8bb1b9047ae11c8a02b423b2, type: 3}
+  trans: {fileID: 1254156901464538, guid: 4c094f018f812ce40afdfb0f79792c39, type: 2}
+  spr: {fileID: 21300000, guid: 36b27697ecbafe04cb84ad7ed298910c, type: 3}
 --- !u!1 &1372233171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,8 +2259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: Level_4
-  trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 2}
-  spr: {fileID: 0}
+  trans: {fileID: 1254156901464538, guid: 4c094f018f812ce40afdfb0f79792c39, type: 2}
+  spr: {fileID: 21300000, guid: 3d4bd691c2eb672489f5c6d46d73dce4, type: 3}
 --- !u!1001 &1540412735
 Prefab:
   m_ObjectHideFlags: 0
