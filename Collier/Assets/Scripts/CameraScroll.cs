@@ -61,10 +61,10 @@ public class CameraScroll : MonoBehaviour
             clampedY, transform.position.z);
     }
 
-    public float GetParallax(SpriteRenderer bg, float offset)
+    public float GetParallax(SpriteRenderer bg, float offset, float shrink)
     {
         float cameraPos = Mathf.InverseLerp(levelTop - cameraSize * 0.5f, levelBottom + cameraSize * 0.5f, Camera.main.transform.position.y);
-        float x = Mathf.Lerp(-offset, (bg.bounds.extents.y * transform.localScale.y) * 2f - cameraSize, cameraPos);
+        float x = Mathf.Lerp(-offset + shrink, (bg.bounds.extents.y * transform.localScale.y) * 2f - cameraSize - shrink, cameraPos);
         return Camera.main.transform.position.y + x;
     }
 }
