@@ -55,7 +55,7 @@ public class Player : MonoBehaviour {
             sr.flipX = true;
         }
         RaycastHit2D? hit = Raycast((Vector2)transform.position
-            + Vector2.down * box.bounds.extents.y * 1.4f, "Hazard");
+            + Vector2.down * box.bounds.extents.y * 0.5f, "Hazard");
         if (hit != null)
         {
             Damage(hit.Value);
@@ -63,16 +63,7 @@ public class Player : MonoBehaviour {
         // if not in contact with obstacle, decrement invincibilty timer
         else
         {
-            bool before = damageTimer > 0;
             damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
-            if (damageTimer == 0f && before)
-            {
-                // re-enable all obstacles
-                foreach (GameObject g in GameObject.FindGameObjectsWithTag("Hazard"))
-                {
-                    g.GetComponent<Collider2D>().isTrigger = false;
-                }
-            }
         }
         switch (state)
         {
@@ -162,17 +153,11 @@ public class Player : MonoBehaviour {
     {
         if (damageTimer == 0)
         {
-            Debug.Log("Oof");
             damageTimer = damageDuration;
             // set player to move away from obstacle
             rb.velocity = new Vector2(5f * -GetSide(),
                 5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
             state = State.HURT;
-            // disable all obstacles
-            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Hazard"))
-            {
-                g.GetComponent<Collider2D>().isTrigger = true;
-            }
             // sparks to indicate pain
             Instantiate(pain, transform.position + Vector3.back, transform.rotation)
                 .GetComponent<Pain>().Initialize(hit.collider.gameObject);
