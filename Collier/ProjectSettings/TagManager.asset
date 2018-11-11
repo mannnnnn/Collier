@@ -19,7 +19,7 @@ TagManager:
   - 
   - Wall
   - Hazard
-  - 
+  - Particles
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particles
+    uniqueID: 1851163081
     locked: 0
   - name: UI
     uniqueID: 2265152607
