@@ -7,6 +7,7 @@ public class Portal : MonoBehaviour {
 
     public string scene;
     public GameObject trans;
+    public Sprite spr;
 
 	// Use this for initialization
 	void Start () {
@@ -22,8 +23,8 @@ public class Portal : MonoBehaviour {
     {
         if (col.gameObject.tag == "Player")
         {
-            Instantiate(trans).GetComponent<SceneTransition>()
-                .Initialize(scene);
+            Instantiate(trans).GetComponent<StoryTransition>()
+                .Initialize(scene, spr);
         }
     }
 }
