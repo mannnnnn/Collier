@@ -34,6 +34,10 @@ public class Player : MonoBehaviour {
     float damageTimer = 0f;
     float damageDuration = 1f;
 
+    float invframesTimer = 0f;
+    float invFramesDur = 0.1f;
+    bool inv = false;
+
     public GameObject pain;
 
     bool dead = false;
@@ -101,6 +105,7 @@ public class Player : MonoBehaviour {
         RaycastHit2D? enemyHitRight = Raycast((Vector2)transform.position
            + Vector2.right * box.bounds.extents.y * 1f, "Enemy");
         damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
+        invframesTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
         if (hit != null || enemyHitDown != null || enemyHitLeft != null || enemyHitRight != null)
         {
             Damage((hit ?? enemyHitDown ?? enemyHitLeft ?? enemyHitRight).Value);
@@ -108,11 +113,19 @@ public class Player : MonoBehaviour {
         // if not in contact with obstacle, decrement invincibilty timer
         else
         {
-            if (state == State.WALL)
+            if (damaged && state == State.WALL)
             {
-                damaged = false;
+                invframesTimer = invFramesDur;
+                inv = true;
             }
         }
+        if (damaged && inv && invframesTimer == 0f)
+        {
+            Debug.Log("undamaged");
+            inv = false;
+            damaged = false;
+        }
+
         switch (state)
         {
             case State.FALL:
