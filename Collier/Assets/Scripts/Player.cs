@@ -32,6 +32,8 @@ public class Player : MonoBehaviour {
     float damageTimer = 0f;
     float damageDuration = 1f;
 
+    public GameObject pain;
+
 	// Use this for initialization
 	void Start () {
         box = GetComponent<BoxCollider2D>();
@@ -163,7 +165,7 @@ public class Player : MonoBehaviour {
             Debug.Log("Oof");
             damageTimer = damageDuration;
             // set player to move away from obstacle
-            rb.velocity = new Vector2(5f * Mathf.Sign(transform.position.x - hit.collider.transform.position.x),
+            rb.velocity = new Vector2(5f * -GetSide(),
                 5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
             state = State.HURT;
             // disable all obstacles
@@ -171,6 +173,9 @@ public class Player : MonoBehaviour {
             {
                 g.GetComponent<Collider2D>().isTrigger = true;
             }
+            // sparks to indicate pain
+            Instantiate(pain, transform.position + Vector3.back, transform.rotation)
+                .GetComponent<Pain>().Initialize(hit.collider.gameObject);
         }
     }
 

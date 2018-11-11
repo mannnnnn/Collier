@@ -581,7 +581,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.10386567
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -613,33 +613,6 @@ Prefab:
       propertyPath: rightWall
       value: 
       objectReference: {fileID: 1379185596}
-    - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 61022840792048762, guid: 15dc190e1d0e3af4ba8b5cecc888d49e,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.08350444
-      objectReference: {fileID: 0}
-    - target: {fileID: 61022840792048762, guid: 15dc190e1d0e3af4ba8b5cecc888d49e,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 1.6224885
-      objectReference: {fileID: 0}
-    - target: {fileID: 50959661918658860, guid: 15dc190e1d0e3af4ba8b5cecc888d49e,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 2}
   m_IsPrefabAsset: 0
