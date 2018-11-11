@@ -23,7 +23,7 @@ public class TouchInput : MonoBehaviour
             down = false;
             timer = 0f;
             end = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (timer < maxDuration)
+            if (timer < maxDuration && (end - start).magnitude > 0.1f)
             {
                 swipe = new Swipe(start, end);
             }
