@@ -25,6 +25,8 @@ public class CutAnimation : MonoBehaviour
     AnimationCurve lineCurve;
     AnimationCurve cutCurve;
 
+    public Vector2 position;
+
     void Start()
     {
         if (line == null)
@@ -71,10 +73,10 @@ public class CutAnimation : MonoBehaviour
         // draw from pointA to middle point on cut
         // then draw from middle point to pointB on retract
         Vector2 point = Vector2.Lerp(pointA, pointB, timer);
-        // deal damage if hit
+        // set position
         if (state == State.CUT && Physics2D.Linecast(pointA, point))
         {
-
+            position = point;
         }
         // change line renderer points
         Vector3[] positions = new Vector3[7];

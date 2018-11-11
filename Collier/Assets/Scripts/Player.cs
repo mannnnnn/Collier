@@ -29,6 +29,9 @@ public class Player : MonoBehaviour {
     Animator anim;
     SpriteRenderer sr;
 
+    float damageTimer = 0f;
+    float damageDuration = 1f;
+
 	// Use this for initialization
 	void Start () {
         box = GetComponent<BoxCollider2D>();
@@ -40,7 +43,8 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector2 pos = transform.position;
-        Debug.Log(state.ToString());
+        damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
+        anim.SetInteger("State", (int)state);
         if (GetSide() < 0)
         {
             sr.flipX = false;
@@ -95,6 +99,14 @@ public class Player : MonoBehaviour {
                     transform.position = new Vector3(cutTarget.x, cutTarget.y, transform.position.z);
                     state = State.FALL;
                 }
+                // if currently in cut animation, check for obstacles
+                else
+                {
+                    if (Raycast(currentCut.position, "Hazard") != null)
+                    {
+                        Damage(1);
+                    }
+                }
                 break;
             case State.STAND:
                 // can only swipe one way
@@ -111,6 +123,15 @@ public class Player : MonoBehaviour {
                 break;
         }
 	}
+
+    void Damage(int damage)
+    {
+        if (damageTimer == 0)
+        {
+            Debug.Log("Oof");
+            damageTimer = damageDuration;
+        }
+    }
 
     // -1 for left, 1 for right
     int GetSide()
@@ -130,7 +151,7 @@ public class Player : MonoBehaviour {
     {
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
-        Vector2? raycast = Raycast((Vector2)transform.position +
+        RaycastHit2D? raycast = Raycast((Vector2)transform.position +
             direction * dist);
         // if no collisions, go to target position
         if (raycast == null)
@@ -141,9 +162,9 @@ public class Player : MonoBehaviour {
             return true;
         }
         // otherwise if far enough away, go to it
-        else if ((raycast - transform.position).Value.magnitude > minCutLength)
+        else if ((raycast.Value.point - (Vector2)transform.position).magnitude > minCutLength)
         {
-            float freeDist = Mathf.MoveTowards((raycast.Value - (Vector2)transform.position).magnitude,
+            float freeDist = Mathf.MoveTowards((raycast.Value.point - (Vector2)transform.position).magnitude,
                 0, box.bounds.extents.x);
             Vector2 end = (Vector2)transform.position + direction * freeDist;
             Cut(transform.position, end);
@@ -163,24 +184,20 @@ public class Player : MonoBehaviour {
     }
 
     // find closest physics collision with player when attempting to go to target
-    public Vector2? Raycast(Vector2 target)
+    public RaycastHit2D? Raycast(Vector2 target, string layer = "Wall")
     {
         Vector2 pos = transform.position;
         RaycastHit2D[] hits = Physics2D.RaycastAll(pos, (target - pos).normalized,
-            (target - pos).magnitude, LayerMask.GetMask("Wall"));
-        if (hits.Length == 0)
-        {
-            return null;
-        }
+            (target - pos).magnitude, LayerMask.GetMask(layer));
         // return closest hit
         float minDist = (target - pos).magnitude;
-        Vector2 min = target;
+        RaycastHit2D? min = null;
         foreach (RaycastHit2D hit in hits)
         {
             if ((hit.point - pos).magnitude < minDist)
             {
                 minDist = (hit.point - pos).magnitude;
-                min = hit.point;
+                min = hit;
             }
         }
         return min;
