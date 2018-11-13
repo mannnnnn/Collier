@@ -3647,12 +3647,12 @@ Prefab:
     - target: {fileID: 198697499051697904, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 10
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 198697499051697904, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
       propertyPath: EmissionModule.rateOverDistance.scalar
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 198697499051697904, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
@@ -3677,12 +3677,12 @@ Prefab:
     - target: {fileID: 199804029862467470, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
       propertyPath: m_MinParticleSize
-      value: 0.002
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 199804029862467470, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
       propertyPath: m_MaxParticleSize
-      value: 0.007
+      value: 0.002
       objectReference: {fileID: 0}
     - target: {fileID: 199804029862467470, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
@@ -3802,7 +3802,7 @@ Prefab:
     - target: {fileID: 198697499051697904, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 32
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 198697499051697904, guid: ea838a1722784c943b897c755e8b4f5a,
         type: 2}
@@ -3818,6 +3818,11 @@ Prefab:
         type: 2}
       propertyPath: TrailModule.minVertexDistance
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 198697499051697904, guid: ea838a1722784c943b897c755e8b4f5a,
+        type: 2}
+      propertyPath: lengthInSec
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea838a1722784c943b897c755e8b4f5a, type: 2}
