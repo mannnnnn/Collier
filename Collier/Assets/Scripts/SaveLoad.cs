@@ -12,9 +12,9 @@ public class SaveLoad : MonoBehaviour
     {
         if (!loaded)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 1; j <= 2; j++)
                 {
                     string key = $"Level_{i}_{j}";
                     if (!PlayerPrefs.HasKey(key))
@@ -33,9 +33,9 @@ public class SaveLoad : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 1; j <= 2; j++)
                 {
                     string key = $"Level_{i}_{j}";
                     PlayerPrefs.DeleteKey(key);
