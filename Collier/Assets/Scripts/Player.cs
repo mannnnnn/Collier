@@ -83,6 +83,16 @@ public class Player : MonoBehaviour {
                 default: audio.clip = impact3; break;
             }
             audio.Play();
+            ParticleSystem dust =  GetComponent<ParticleSystem>();
+            ParticleSystem.ShapeModule dustShape = dust.shape;
+            if(GetSide() == -1){
+            dustShape.rotation = new Vector3(0,0,270);
+            dust.Play();
+            } else {
+            dustShape.rotation = new Vector3(0,0,90);
+            dust.Play();
+            }
+            
         }
         prevWall = wallDirection;
 
