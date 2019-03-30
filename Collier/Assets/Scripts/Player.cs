@@ -369,13 +369,23 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.gameObject.tag == "Goal" && SceneManager.GetActiveScene().name != "1_Town")
+        if (col.collider.gameObject.tag == "Goal" && InLevel())
         {
             if (!damaged && !dead)
             {
                 win = true;
             }
         }
+    }
+
+    public static bool InLevel()
+    {
+        return SceneManager.GetActiveScene().name != "1_Town"
+                && SceneManager.GetActiveScene().name != "Level_Select_1"
+                && SceneManager.GetActiveScene().name != "Level_Select_2"
+                && SceneManager.GetActiveScene().name != "Level_Select_3"
+                && SceneManager.GetActiveScene().name != "Level_Select_4"
+                && SceneManager.GetActiveScene().name != "Level_Select_5";
     }
 
     bool Grounded()
