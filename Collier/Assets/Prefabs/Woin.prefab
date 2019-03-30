@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 212064307597150256}
   - component: {fileID: 95232344839642030}
   - component: {fileID: 61904574285380700}
-  - component: {fileID: 3514736911208113427}
   - component: {fileID: 400977858}
   m_Layer: 11
   m_Name: WoniSprite
@@ -128,21 +127,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!111 &3514736911208113427
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118046933807282}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &400977858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +310,7 @@ Animation:
   m_GameObject: {fileID: 3477788433651899008}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 69b5246a1a2c3314bb2b574d4d329123, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
