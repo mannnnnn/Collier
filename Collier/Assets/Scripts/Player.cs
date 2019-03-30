@@ -276,6 +276,7 @@ public class Player : MonoBehaviour {
                explode.Play();
                hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 float totalDuration = explode.duration + explode.startLifetime;
+                Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
                 Destroy(hit.collider.gameObject, totalDuration);
                 Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
                 coins.coins++;
