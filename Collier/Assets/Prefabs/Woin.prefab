@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 212064307597150256}
   - component: {fileID: 95232344839642030}
   - component: {fileID: 61904574285380700}
-  - component: {fileID: 400977858}
   - component: {fileID: 7801387678859727510}
   - component: {fileID: 502222389850590028}
   m_Layer: 11
@@ -129,21 +128,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &400977858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118046933807282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
 --- !u!198 &7801387678859727510
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4821,7 +4805,7 @@ GameObject:
   - component: {fileID: 4422459106958778}
   m_Layer: 11
   m_Name: Woin
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
