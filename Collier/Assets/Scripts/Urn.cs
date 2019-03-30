@@ -34,10 +34,8 @@ public class Urn : MonoBehaviour
         {
             return;
         }
-        Debug.Log("You tried.");
         if (col.gameObject.tag == "Player" && GameObject.FindGameObjectWithTag("SceneTransition") == null)
         {
-            Debug.Log("You tried even harder.");
             GameObject go = Instantiate(trans);
             if (go.GetComponent<SceneTransition>() != null)
             {

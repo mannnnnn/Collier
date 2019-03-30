@@ -6,20 +6,30 @@ using UnityEngine;
 public class SaveLoad : MonoBehaviour
 {
     static bool loaded = false;
+    public static int LEVELS = 5;
+    public static int STAGES = 2;
     public static Dictionary<string, int> levelUnlocked = new Dictionary<string, int>();
     // Start is called before the first frame update
     void Awake()
     {
         if (!loaded)
         {
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= SaveLoad.LEVELS; i++)
             {
-                for (int j = 1; j <= 2; j++)
+                for (int j = 1; j <= SaveLoad.STAGES; j++)
                 {
                     string key = $"Level_{i}_{j}";
                     if (!PlayerPrefs.HasKey(key))
                     {
-                        PlayerPrefs.SetInt(key, Random.Range(-1, 4));
+                        PlayerPrefs.SetInt(key, -1);
+                    }
+                    // if the first level is locked by save or a save doesn't exist,
+                    // unlock the first level
+                    if (key == "Level_1_1" &&
+                        (!PlayerPrefs.HasKey(key) || PlayerPrefs.GetInt(key) < 0))
+                    {
+                        PlayerPrefs.SetInt(key, 0);
+                        levelUnlocked[key] = 0;
                     }
                     levelUnlocked[key] = PlayerPrefs.GetInt(key);
                 }
@@ -33,11 +43,12 @@ public class SaveLoad : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= SaveLoad.LEVELS; i++)
             {
-                for (int j = 1; j <= 2; j++)
+                for (int j = 1; j <= SaveLoad.STAGES; j++)
                 {
                     string key = $"Level_{i}_{j}";
+                    levelUnlocked[key] = -1;
                     PlayerPrefs.DeleteKey(key);
                 }
             }
@@ -45,7 +56,14 @@ public class SaveLoad : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            levelUnlocked["Level_1_1"] = ((levelUnlocked["Level_1_1"] + 2) % 5) - 1;
+            for (int i = 1; i <= SaveLoad.LEVELS; i++)
+            {
+                for (int j = 1; j <= SaveLoad.STAGES; j++)
+                {
+                    string key = $"Level_{i}_{j}";
+                    levelUnlocked[key] = ((levelUnlocked[key] + 2) % 5) - 1;
+                }
+            }
         }
     }
 }

@@ -40,17 +40,23 @@ public class Victory : MonoBehaviour {
             {
                 case 1:
                     transform.Find("Star1").GetComponent<Image>().sprite = star1;
+                    SaveLoad.levelUnlocked[SceneManager.GetActiveScene().name] = index;
+                    PlayerPrefs.SetInt(SceneManager.GetActiveScene().name, index);
                     break;
                 case 2:
                     if (health + coins > Mathf.CeilToInt(maxScore / 2f))
                     {
                         transform.Find("Star2").GetComponent<Image>().sprite = star2;
+                        SaveLoad.levelUnlocked[SceneManager.GetActiveScene().name] = index;
+                        PlayerPrefs.SetInt(SceneManager.GetActiveScene().name, index);
                     }
                     break;
                 case 3:
                     if (health + coins >= maxScore)
                     {
                         transform.Find("Star3").GetComponent<Image>().sprite = star3;
+                        SaveLoad.levelUnlocked[SceneManager.GetActiveScene().name] = index;
+                        PlayerPrefs.SetInt(SceneManager.GetActiveScene().name, index);
                     }
                     break;
             }
