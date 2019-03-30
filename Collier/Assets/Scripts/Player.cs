@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour {
     public GameObject cut;
     CutAnimation currentCut;
     Vector2 cutTarget;
-    AudioSource audio;
+    AudioSource dio;
     Rigidbody2D rb;
 
     public GameObject leftWall;
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        audio = GetComponent<AudioSource>();
+        dio = GetComponent<AudioSource>();
         box = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -74,15 +75,15 @@ public class Player : MonoBehaviour {
         Debug.Log("Walled:" + Walled());
         Debug.Log("Impact:" + prevWall);
         if (prevWall != wallDirection && Walled()){
-            int soundSwitch = Random.Range(1, 4);
+            int soundSwitch = UnityEngine.Random.Range(1, 4);
             Debug.Log("Playing Impact");
             switch(soundSwitch){
-                case(1): audio.clip = impact1;break;
-                case(2): audio.clip = impact2;break;
-                case(3): audio.clip = impact3;break;
-                default: audio.clip = impact3; break;
+                case(1): dio.clip = impact1;break;
+                case(2): dio.clip = impact2;break;
+                case(3): dio.clip = impact3;break;
+                default: dio.clip = impact3; break;
             }
-            audio.Play();
+            dio.Play();
             ParticleSystem dust =  GetComponent<ParticleSystem>();
             ParticleSystem.ShapeModule dustShape = dust.shape;
             if(GetSide() == -1){
@@ -114,6 +115,25 @@ public class Player : MonoBehaviour {
                 {
                     GameObject ui = GameObject.FindGameObjectWithTag("UI");
                     ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
+
+                    bool unlockNext = false;
+                    for (int i = 1; i <= SaveLoad.LEVELS; i++)
+                    {
+                        for (int j = 1; j <= SaveLoad.STAGES; j++)
+                        {
+                            string key = $"Level_{i}_{j}";
+                            if (unlockNext)
+                            {
+                                SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
+                                PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
+                                unlockNext = false;
+                            }
+                            if (key == SceneManager.GetActiveScene().name)
+                            {
+                                unlockNext = true;
+                            }
+                        }
+                    }
                 }
 
             }
@@ -263,15 +283,15 @@ public class Player : MonoBehaviour {
         {
             if (hit.collider.gameObject.tag == "Enemy")
             {
-                int soundSwitch = Random.Range(1, 4);
+                int soundSwitch = UnityEngine.Random.Range(1, 4);
                 switch(soundSwitch){
-                    case(1): audio.clip = sword1;break;
-                    case(2): audio.clip = sword2;break;
-                    case(3): audio.clip = sword3;break;
-                    default: audio.clip = sword3; break;
+                    case(1): dio.clip = sword1;break;
+                    case(2): dio.clip = sword2;break;
+                    case(3): dio.clip = sword3;break;
+                    default: dio.clip = sword3; break;
                 }
-                
-                audio.Play();
+
+                dio.Play();
                ParticleSystem explode =  hit.collider.gameObject.GetComponent<ParticleSystem>();
                explode.Play();
                hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -291,8 +311,8 @@ public class Player : MonoBehaviour {
         {
             damageTimer = damageDuration;
             damaged = true;
-            audio.clip = oof;
-            audio.Play();
+            dio.clip = oof;
+            dio.Play();
             // set player to move away from obstacle
             rb.velocity = new Vector2(5f * -GetSide(),
                 5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
@@ -358,8 +378,8 @@ public class Player : MonoBehaviour {
     // start the cut animation
     void Cut(Vector2 start, Vector2 end)
     {
-        audio.clip = swish;
-        audio.Play();
+        dio.clip = swish;
+        dio.Play();
         state = State.CUT;
         rb.velocity = Vector2.zero;
         cutTarget = end;
