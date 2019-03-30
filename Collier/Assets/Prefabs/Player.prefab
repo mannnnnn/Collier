@@ -156,8 +156,11 @@ MonoBehaviour:
   impact1: {fileID: 8300000, guid: 71a9d155d292b9f47a7aed67f4752534, type: 3}
   impact2: {fileID: 8300000, guid: 004df7330b1a7b64d90b281700e69f6f, type: 3}
   impact3: {fileID: 8300000, guid: 92d30ef1c79553140bac8eb84e4dafd7, type: 3}
+  oof: {fileID: 8300000, guid: ea2c8847c2c8d2e4e99f1ed77232db11, type: 3}
+  swish: {fileID: 8300000, guid: c0bb51052c9d3a34693ea10a7f176d91, type: 3}
   pain: {fileID: 1839352528027234, guid: 6712d50f580691d4e99a423036537153, type: 3}
   spdCap: 10
+  wallDirection: 0
 --- !u!95 &95899457866484532
 Animator:
   serializedVersion: 3

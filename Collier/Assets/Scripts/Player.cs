@@ -33,7 +33,8 @@ public class Player : MonoBehaviour {
     public AudioClip impact1;
     public AudioClip impact2;
     public AudioClip impact3;
-
+    public AudioClip oof;
+    public AudioClip swish;
     Animator anim;
     SpriteRenderer sr;
 
@@ -275,6 +276,8 @@ public class Player : MonoBehaviour {
         {
             damageTimer = damageDuration;
             damaged = true;
+            audio.clip = oof;
+            audio.Play();
             // set player to move away from obstacle
             rb.velocity = new Vector2(5f * -GetSide(),
                 5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
@@ -340,6 +343,8 @@ public class Player : MonoBehaviour {
     // start the cut animation
     void Cut(Vector2 start, Vector2 end)
     {
+        audio.clip = swish;
+        audio.Play();
         state = State.CUT;
         rb.velocity = Vector2.zero;
         cutTarget = end;
