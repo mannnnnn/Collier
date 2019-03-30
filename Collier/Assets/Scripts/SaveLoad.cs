@@ -45,7 +45,14 @@ public class SaveLoad : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            levelUnlocked["Level_1_1"] = ((levelUnlocked["Level_1_1"] + 2) % 5) - 1;
+            for (int i = 1; i <= 5; i++)
+            {
+                for (int j = 1; j <= 2; j++)
+                {
+                    string key = $"Level_{i}_{j}";
+                    levelUnlocked[key] = ((levelUnlocked[key] + 2) % 5) - 1;
+                }
+            }
         }
     }
 }
