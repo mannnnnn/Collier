@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_4.unity
     guid: cfc3c393afc4e3f4a8c1d775656edb64
+  - enabled: 1
+    path: Assets/Scenes/Level_Select_1.unity
+    guid: 130c993625727ca4b87f885867be16c0
+  - enabled: 1
+    path: Assets/Scenes/The Monster Map.unity
+    guid: 2c9b36911c2976d4aa112a5973738982
   m_configObjects: {}

@@ -64,7 +64,7 @@ public class SceneChanger : MonoBehaviour {
             creditScreen.SetActive(false);
             openUI = false;
         }
-		else if (SceneManager.GetActiveScene().name == "1_Town")
+		else if (Player.InLevel())
 		{
 			Application.Quit();
 		} 

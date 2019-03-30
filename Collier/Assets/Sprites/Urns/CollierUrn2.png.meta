@@ -127,7 +127,7 @@ TextureImporter:
       bones: []
       spriteID: c7bfcacf9be3e44cfae051acd994b873
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -147,7 +147,7 @@ TextureImporter:
       bones: []
       spriteID: 613e0e83265ed41d5a8f5120a37bfd5d
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -167,7 +167,7 @@ TextureImporter:
       bones: []
       spriteID: 82d47e3b0f51b4bf8876b72b5a2ae413
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -187,7 +187,7 @@ TextureImporter:
       bones: []
       spriteID: 47c3feb6896da49be91b7bb02163f3aa
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -207,7 +207,7 @@ TextureImporter:
       bones: []
       spriteID: 944520977ec28412ab3783e18147f6ff
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
@@ -215,12 +215,12 @@ TextureImporter:
     bones: []
     spriteID: 1c0b9beae59014a569bd54a3ec0ff4ba
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
-  spritePackingTag: 
+  spritePackingTag:
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:

@@ -33,7 +33,8 @@ public class Player : MonoBehaviour {
     public AudioClip impact1;
     public AudioClip impact2;
     public AudioClip impact3;
-
+    public AudioClip oof;
+    public AudioClip swish;
     Animator anim;
     SpriteRenderer sr;
 
@@ -275,6 +276,8 @@ public class Player : MonoBehaviour {
         {
             damageTimer = damageDuration;
             damaged = true;
+            audio.clip = oof;
+            audio.Play();
             // set player to move away from obstacle
             rb.velocity = new Vector2(5f * -GetSide(),
                 5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
@@ -340,6 +343,8 @@ public class Player : MonoBehaviour {
     // start the cut animation
     void Cut(Vector2 start, Vector2 end)
     {
+        audio.clip = swish;
+        audio.Play();
         state = State.CUT;
         rb.velocity = Vector2.zero;
         cutTarget = end;
@@ -369,13 +374,23 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.gameObject.tag == "Goal" && SceneManager.GetActiveScene().name != "1_Town")
+        if (col.collider.gameObject.tag == "Goal" && InLevel())
         {
             if (!damaged && !dead)
             {
                 win = true;
             }
         }
+    }
+
+    public static bool InLevel()
+    {
+        return SceneManager.GetActiveScene().name != "1_Town"
+                && SceneManager.GetActiveScene().name != "Level_Select_1"
+                && SceneManager.GetActiveScene().name != "Level_Select_2"
+                && SceneManager.GetActiveScene().name != "Level_Select_3"
+                && SceneManager.GetActiveScene().name != "Level_Select_4"
+                && SceneManager.GetActiveScene().name != "Level_Select_5";
     }
 
     bool Grounded()

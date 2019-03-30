@@ -500,7 +500,9 @@ MonoBehaviour:
 
     Evans Chen
 
-    Skylyn Worzalla'
+    Skylyn Worzalla
+
+    Mary Xu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e036b77acd901d24a907a29c8068bcf4, type: 2}
   m_sharedMaterial: {fileID: 21541704044893392, guid: e036b77acd901d24a907a29c8068bcf4,
@@ -547,7 +549,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 41
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -570,12 +572,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: -0.013339292, z: 0.40404135, w: 0.6733391}
   m_textInfo:
     textComponent: {fileID: 178620843}
-    characterCount: 40
+    characterCount: 48
     spriteCount: 0
-    spaceCount: 5
-    wordCount: 6
+    spaceCount: 7
+    wordCount: 8
     linkCount: 0
-    lineCount: 3
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -1864,13 +1866,14 @@ GameObject:
   - component: {fileID: 947294526}
   - component: {fileID: 947294525}
   - component: {fileID: 947294524}
+  - component: {fileID: 947294528}
   m_Layer: 5
   m_Name: UI
   m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &947294524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1953,6 +1956,18 @@ Canvas:
   m_SortingLayerID: -2029814689
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &947294528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947294523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b346353766f73ff409499a15acb93985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &973208746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,7 +2450,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Made for \nMadHacks2018"
+  m_text: "Made for \nMadHacks2019"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e036b77acd901d24a907a29c8068bcf4, type: 2}
   m_sharedMaterial: {fileID: 21541704044893392, guid: e036b77acd901d24a907a29c8068bcf4,
@@ -3417,9 +3432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139ed98dbc11c58449e00a797a559b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: Level_1
-  trans: {fileID: 1254156901464538, guid: 4c094f018f812ce40afdfb0f79792c39, type: 3}
-  spr: {fileID: 21300000, guid: 36b27697ecbafe04cb84ad7ed298910c, type: 3}
+  scene: Level_Select_1
+  trans: {fileID: 1254156901464538, guid: 15c8d9c9451943b44a257dad97843efb, type: 3}
+  spr: {fileID: 0}
 --- !u!1 &1372233171
 GameObject:
   m_ObjectHideFlags: 0
