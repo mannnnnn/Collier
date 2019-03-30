@@ -262,7 +262,11 @@ public class Player : MonoBehaviour {
                 }
                 
                 audio.Play();
-                Destroy(hit.collider.gameObject);
+               ParticleSystem explode =  hit.collider.gameObject.GetComponent<ParticleSystem>();
+               explode.Play();
+               hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                float totalDuration = explode.duration + explode.startLifetime;
+                Destroy(hit.collider.gameObject, totalDuration);
                 Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
                 coins.coins++;
             }
