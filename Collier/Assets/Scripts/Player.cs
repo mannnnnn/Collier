@@ -19,13 +19,20 @@ public class Player : MonoBehaviour {
     public GameObject cut;
     CutAnimation currentCut;
     Vector2 cutTarget;
-
+    AudioSource audio;
     Rigidbody2D rb;
 
     public GameObject leftWall;
     public GameObject rightWall;
 
     public float driftSpeed = 3;
+    //SOUNDS
+    public AudioClip sword1;
+    public AudioClip sword2;
+    public AudioClip sword3;
+    public AudioClip impact1;
+    public AudioClip impact2;
+    public AudioClip impact3;
 
     Animator anim;
     SpriteRenderer sr;
@@ -45,10 +52,16 @@ public class Player : MonoBehaviour {
     float timer = 0f;
     float duration = 1f;
 
+    int prevWall = 0;
+
     public float spdCap = 10f;
+
+    // updated by Walled()
+    public int wallDirection = 0;
 
 	// Use this for initialization
 	void Start () {
+        audio = GetComponent<AudioSource>();
         box = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -57,6 +70,22 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        Debug.Log("Walled:" + Walled());
+        Debug.Log("Impact:" + prevWall);
+        if (prevWall != wallDirection && Walled()){
+            int soundSwitch = Random.Range(1, 4);
+            Debug.Log("Playing Impact");
+            switch(soundSwitch){
+                case(1): audio.clip = impact1;break;
+                case(2): audio.clip = impact2;break;
+                case(3): audio.clip = impact3;break;
+                default: audio.clip = impact3; break;
+            }
+            audio.Play();
+        }
+        prevWall = wallDirection;
+
+
         if (dead || win)
         {
             timer += Time.deltaTime;
@@ -223,6 +252,15 @@ public class Player : MonoBehaviour {
         {
             if (hit.collider.gameObject.tag == "Enemy")
             {
+                int soundSwitch = Random.Range(1, 4);
+                switch(soundSwitch){
+                    case(1): audio.clip = sword1;break;
+                    case(2): audio.clip = sword2;break;
+                    case(3): audio.clip = sword3;break;
+                    default: audio.clip = sword3; break;
+                }
+                
+                audio.Play();
                 Destroy(hit.collider.gameObject);
                 Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
                 coins.coins++;
@@ -347,7 +385,12 @@ public class Player : MonoBehaviour {
     }
     bool Walled()
     {
-        return Raycast((Vector2)transform.position + Vector2.left * box.bounds.extents.x * 1.3f) != null ||
-            Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null;
+        if (Raycast((Vector2)transform.position + Vector2.left * box.bounds.extents.x * 1.3f) != null) {
+            wallDirection = -1;
+        }
+        if (Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null) {
+            wallDirection = 1;
+        }
+        return  wallDirection != 0;
     }
 }
