@@ -157,13 +157,13 @@ public class Player : MonoBehaviour {
             sr.flipX = true;
         }
         RaycastHit2D? hit = Raycast((Vector2)transform.position
-            + Vector2.down * box.bounds.extents.y * 0.5f, "Hazard");
+            + Vector2.down * box.bounds.extents.y * 0.5f, "Hazard", true);
         RaycastHit2D? enemyHitDown = Raycast((Vector2)transform.position
-            + Vector2.down * box.bounds.extents.y * 0.5f, "Enemy");
+            + Vector2.down * box.bounds.extents.y * 0.5f, "Enemy", true);
         RaycastHit2D? enemyHitLeft = Raycast((Vector2)transform.position
-           + Vector2.left * box.bounds.extents.y * 1f, "Enemy");
+           + Vector2.left * box.bounds.extents.y * 1f, "Enemy", true);
         RaycastHit2D? enemyHitRight = Raycast((Vector2)transform.position
-           + Vector2.right * box.bounds.extents.y * 1f, "Enemy");
+           + Vector2.right * box.bounds.extents.y * 1f, "Enemy", true);
         damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
         invframesTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
         if (hit != null || enemyHitDown != null || enemyHitLeft != null || enemyHitRight != null)
