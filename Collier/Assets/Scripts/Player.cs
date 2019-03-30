@@ -60,6 +60,8 @@ public class Player : MonoBehaviour {
 
     // updated by Walled()
     public int wallDirection = 0;
+    public bool letGoToTown = false;
+    public GameObject trans;
 
 	// Use this for initialization
 	void Start () {
@@ -84,6 +86,11 @@ public class Player : MonoBehaviour {
                 default: dio.clip = impact3; break;
             }
             dio.Play();
+            if(trans != null){
+            Instantiate(trans).GetComponent<SceneTransition>()
+            .Initialize("1_Town");
+            }
+            
             ParticleSystem dust =  GetComponent<ParticleSystem>();
             ParticleSystem.ShapeModule dustShape = dust.shape;
             if(GetSide() == -1){
@@ -297,7 +304,7 @@ public class Player : MonoBehaviour {
                hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 float totalDuration = explode.duration + explode.startLifetime;
                 Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
-                Destroy(hit.collider.gameObject, totalDuration);
+                 Destroy(hit.collider.gameObject,totalDuration);
                 Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
                 coins.coins++;
             }
@@ -378,6 +385,7 @@ public class Player : MonoBehaviour {
     // start the cut animation
     void Cut(Vector2 start, Vector2 end)
     {
+        letGoToTown = true;
         dio.clip = swish;
         dio.Play();
         state = State.CUT;
