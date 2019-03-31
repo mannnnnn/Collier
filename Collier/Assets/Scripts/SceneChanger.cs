@@ -51,6 +51,12 @@ public class SceneChanger : MonoBehaviour {
         Instantiate(trans).GetComponent<SceneTransition>()
             .Initialize("1_Town");
     }
+
+	public void LoadTut () 
+	{
+        Instantiate(trans).GetComponent<SceneTransition>()
+            .Initialize("Tutorial");
+    }
 	
 	public void ShowCredits () {
         creditScreen.SetActive(true);
