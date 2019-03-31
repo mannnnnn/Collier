@@ -61,7 +61,25 @@ public class SceneChanger : MonoBehaviour {
 	public void ShowCredits () {
         creditScreen.SetActive(true);
         openUI = true;
-	}
+        for (int i = 1; i <= SaveLoad.LEVELS; i++)
+        {
+            for (int j = 1; j <= SaveLoad.STAGES; j++)
+            {
+                string key = $"Level_{i}_{j}";
+                SaveLoad.levelUnlocked[key] = -1;
+                PlayerPrefs.DeleteKey(key);
+                // if the first level is locked by save or a save doesn't exist,
+                // unlock the first level
+                if (key == "Level_1_1" &&
+                    (!PlayerPrefs.HasKey(key) || PlayerPrefs.GetInt(key) < 0))
+                {
+                    PlayerPrefs.SetInt(key, 0);
+                    SaveLoad.levelUnlocked[key] = 0;
+                }
+            }
+        }
+        SaveLoad.loaded = false;
+    }
 
 	public void HandleExit () 
 	{

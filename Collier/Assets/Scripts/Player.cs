@@ -50,7 +50,7 @@ public class Player : MonoBehaviour {
     public GameObject pain;
 
     bool dead = false;
-    bool win = false;
+    public bool win = false;
     float timer = 0f;
     float duration = 1f;
 
@@ -300,16 +300,16 @@ public class Player : MonoBehaviour {
                 }
 
                 dio.Play();
-               ParticleSystem explode =  hit.collider.gameObject.GetComponent<ParticleSystem>();
-               explode.Play();
-               hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                float totalDuration = explode.duration + explode.startLifetime;
                 if (hit.collider.gameObject.tag == "Boss")
                 {
-                    GameObject.Find("Boss").GetComponent<Boss>().Damage();
+                    GameObject.Find("DemonKing").GetComponent<Boss>().Damage();
                 }
                 else
                 {
+                    ParticleSystem explode = hit.collider.gameObject.GetComponent<ParticleSystem>();
+                    explode.Play();
+                    hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    float totalDuration = explode.duration + explode.startLifetime;
                     Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
                     Destroy(hit.collider.gameObject, totalDuration);
                 }
@@ -321,6 +321,10 @@ public class Player : MonoBehaviour {
 
     void Damage(RaycastHit2D hit)
     {
+        if (hit.collider.gameObject.tag == "Boss")
+        {
+            return;
+        }
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
         if (!damaged && health.health > 0 && state != State.CUT)
         {
@@ -425,11 +429,17 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.gameObject.tag == "Goal" && InLevel())
+        if (col.collider.gameObject.tag == "Goal")
         {
-            if (!damaged && !dead)
+            if (!damaged && !dead && InLevel())
             {
                 win = true;
+            }
+            if (SceneManager.GetActiveScene().name == "Level_4_1")
+            {
+                Destroy(GameObject.Find("Final_Boss_Artifact 1"));
+                transform.Find("GlowOn").gameObject.SetActive(true);
+                GameObject.Find("DemonKing").GetComponent<Boss>().GotArtifactBadGameThanks();
             }
         }
     }
@@ -442,7 +452,7 @@ public class Player : MonoBehaviour {
                 && SceneManager.GetActiveScene().name != "Level_Select_3"
                 && SceneManager.GetActiveScene().name != "Level_Select_4"
                 && SceneManager.GetActiveScene().name != "Level_Select_5"
-                && SceneManager.GetActiveScene().name != "Level_1_2";
+                && SceneManager.GetActiveScene().name != "Level_4_1";
     }
 
     bool Grounded()

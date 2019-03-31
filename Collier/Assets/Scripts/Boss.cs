@@ -21,6 +21,8 @@ public class Boss : MonoBehaviour
 
     GameObject wall;
 
+    float inv = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +33,19 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        inv = Mathf.MoveTowards(inv, 0, 1f * Time.deltaTime);
+        if (sword && state != State.KillMe)
+        {
+            state = State.MoveUp;
+            gameObject.tag = "Boss";
+            gameObject.layer = LayerMask.NameToLayer("Enemy");
+        }
         switch (state)
         {
             case State.Begin:
                 // slowly move downwards
                 timer += Time.deltaTime;
-                if (timer > 3f)
+                if (timer > 6f)
                 {
                     state = State.MoveDown;
                     timer = 0f;
@@ -66,12 +75,6 @@ public class Boss : MonoBehaviour
                 break;
             case State.Stop:
                 // pause since the player has the artifact
-                if (timer > 5f)
-                {
-                    state = State.MoveUp;
-                    gameObject.tag = "Boss";
-                    gameObject.layer = LayerMask.NameToLayer("Enemy");
-                }
                 timer += Time.deltaTime;
                 break;
             case State.MoveUp:
@@ -82,22 +85,44 @@ public class Boss : MonoBehaviour
                 {
                     state = State.KillMe;
                 }
+                gameObject.tag = "Boss";
+                gameObject.layer = LayerMask.NameToLayer("Enemy");
                 break;
             case State.KillMe:
                 // sits at top of map
+                if (health <= 0)
+                {
+                    state = State.Die;
+                }
+                Color c = GetComponent<SpriteRenderer>().color;
+                GetComponent<SpriteRenderer>().color = new Color(c.r, c.g, c.b, health / 3f);
+                gameObject.tag = "Boss";
+                gameObject.layer = LayerMask.NameToLayer("Enemy");
                 break;
             case State.Die:
                 // death animation, freeze player
-                if (timer > 3f)
-                {
-                    // trigger victory
-                }
+                player.GetComponent<Player>().win = true;
+                Destroy(gameObject);
+                gameObject.tag = "Boss";
+                gameObject.layer = LayerMask.NameToLayer("Enemy");
                 break;
         }
     }
 
+    public int health = 3;
     public void Damage()
     {
+        if (inv <= 0)
+        {
+            health--;
+            inv = 0.1f;
+        }
+    }
 
+    bool sword = false;
+    public void GotArtifactBadGameThanks()
+    {
+        Debug.Log("OIAHSDJAOIHDAOHDIHWOPIADHAOPIDWHUOPIADHUAPIDHBUAIHOIWPUAHD");
+        sword = true;
     }
 }
