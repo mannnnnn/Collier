@@ -74,11 +74,11 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Debug.Log("Walled:" + Walled());
-        Debug.Log("Impact:" + prevWall);
+        //Debug.Log("Walled:" + Walled());
+        //Debug.Log("Impact:" + prevWall);
         if (prevWall != wallDirection && Walled()){
             int soundSwitch = UnityEngine.Random.Range(1, 4);
-            Debug.Log("Playing Impact");
+            //Debug.Log("Playing Impact");
             switch(soundSwitch){
                 case(1): dio.clip = impact1;break;
                 case(2): dio.clip = impact2;break;
