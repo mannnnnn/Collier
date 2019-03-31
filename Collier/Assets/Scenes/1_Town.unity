@@ -4025,6 +4025,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1046678792194060, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.16
@@ -4058,12 +4062,16 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975097563397000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114209755527880742, guid: 15dc190e1d0e3af4ba8b5cecc888d49e,
         type: 3}
@@ -4075,6 +4083,10 @@ PrefabInstance:
       propertyPath: rightWall
       value: 
       objectReference: {fileID: 1786831069}
+    - target: {fileID: 202079872, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15dc190e1d0e3af4ba8b5cecc888d49e, type: 3}
 --- !u!1 &1630227872
