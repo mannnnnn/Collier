@@ -13,6 +13,8 @@ public class Boss : MonoBehaviour
     float timer = 0f;
     public float spd = 10f;
 
+    public GameObject cga;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,9 +28,14 @@ public class Boss : MonoBehaviour
         {
             case State.Begin:
                 // slowly move downwards
-                if (timer < 4f)
+                if (timer < 3f)
                 {
                     timer += Time.deltaTime;
+                }
+                else
+                {
+                    timer = 0f;
+                    Instantiate(cga);
                 }
                 transform.position = new Vector3(transform.position.x,
                     transform.position.y + -spd * 0.5f * Time.deltaTime, transform.position.z);
