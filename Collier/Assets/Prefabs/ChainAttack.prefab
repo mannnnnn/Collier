@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c778a47ccec54246a9ff641c1a15151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningDuration: 1
+  warningDuration: 0.75
   pointA: {x: 0, y: 0}
   pointB: {x: 0, y: 0}
   chain: {fileID: 2979718372613026815, guid: 65d230f9afa135c48b76bbe2a15b1de4, type: 3}

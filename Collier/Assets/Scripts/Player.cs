@@ -39,7 +39,7 @@ public class Player : MonoBehaviour {
     Animator anim;
     SpriteRenderer sr;
 
-    bool damaged = false;
+    public bool damaged = false;
     float damageTimer = 0f;
     float damageDuration = 1f;
 
@@ -180,7 +180,7 @@ public class Player : MonoBehaviour {
         // if not in contact with obstacle, decrement invincibilty timer
         else
         {
-            if (damaged && state == State.WALL)
+            if (damaged && state != State.WALL)
             {
                 invframesTimer = invFramesDur;
                 inv = true;
@@ -288,7 +288,8 @@ public class Player : MonoBehaviour {
             (end - start).magnitude, LayerMask.GetMask("Enemy"));
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.gameObject.tag == "Enemy")
+            if (hit.collider.gameObject.tag == "Enemy" 
+                || hit.collider.gameObject.tag == "Boss")
             {
                 int soundSwitch = UnityEngine.Random.Range(1, 4);
                 switch(soundSwitch){
@@ -303,8 +304,15 @@ public class Player : MonoBehaviour {
                explode.Play();
                hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 float totalDuration = explode.duration + explode.startLifetime;
-                Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
-                 Destroy(hit.collider.gameObject,totalDuration);
+                if (hit.collider.gameObject.tag == "Boss")
+                {
+                    GameObject.Find("Boss").GetComponent<Boss>().Damage();
+                }
+                else
+                {
+                    Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
+                    Destroy(hit.collider.gameObject, totalDuration);
+                }
                 Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
                 coins.coins++;
             }
@@ -433,7 +441,8 @@ public class Player : MonoBehaviour {
                 && SceneManager.GetActiveScene().name != "Level_Select_2"
                 && SceneManager.GetActiveScene().name != "Level_Select_3"
                 && SceneManager.GetActiveScene().name != "Level_Select_4"
-                && SceneManager.GetActiveScene().name != "Level_Select_5";
+                && SceneManager.GetActiveScene().name != "Level_Select_5"
+                && SceneManager.GetActiveScene().name != "Level_1_2";
     }
 
     bool Grounded()

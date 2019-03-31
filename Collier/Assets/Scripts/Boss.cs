@@ -11,14 +11,21 @@ public class Boss : MonoBehaviour
     State state = State.Begin;
 
     float timer = 0f;
-    public float spd = 10f;
+    public float spd;
 
     public GameObject cga;
+
+    GameObject player;
+
+    float startPos;
+
+    GameObject wall;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
+        wall = transform.Find("Wall").gameObject;
     }
 
     // Update is called once per frame
@@ -28,35 +35,56 @@ public class Boss : MonoBehaviour
         {
             case State.Begin:
                 // slowly move downwards
-                if (timer < 3f)
+                timer += Time.deltaTime;
+                if (timer > 3f)
                 {
-                    timer += Time.deltaTime;
-                }
-                else
-                {
+                    state = State.MoveDown;
                     timer = 0f;
-                    Instantiate(cga);
+                    startPos = transform.position.y;
                 }
                 transform.position = new Vector3(transform.position.x,
-                    transform.position.y + -spd * 0.5f * Time.deltaTime, transform.position.z);
+                    transform.position.y + -spd * 0f * Time.deltaTime, transform.position.z);
                 break;
             case State.MoveDown:
                 // quickly move downwards
-                transform.position = new Vector3(transform.position.x,
-                    transform.position.y + -spd * Time.deltaTime, transform.position.z);
+                if (!player.GetComponent<Player>().damaged)
+                {
+                    transform.position = new Vector3(transform.position.x,
+                        transform.position.y + -spd * Time.deltaTime, transform.position.z);
+                }
+                timer += Time.deltaTime;
+                if (timer > 1.5f)
+                {
+                    Instantiate(cga);
+                    timer = 0f;
+                }
+                if (transform.position.y < 3.21f)
+                {
+                    state = State.Stop;
+                    timer = 0f;
+                }
                 break;
             case State.Stop:
                 // pause since the player has the artifact
+                if (timer > 5f)
+                {
+                    state = State.MoveUp;
+                    gameObject.tag = "Boss";
+                    gameObject.layer = LayerMask.NameToLayer("Enemy");
+                }
+                timer += Time.deltaTime;
                 break;
             case State.MoveUp:
                 // speed-walk away
                 transform.position = new Vector3(transform.position.x,
                     transform.position.y + spd * 0.75f * Time.deltaTime, transform.position.z);
+                if (transform.position.y > startPos)
+                {
+                    state = State.KillMe;
+                }
                 break;
             case State.KillMe:
                 // sits at top of map
-                transform.position = new Vector3(transform.position.x,
-                    transform.position.y + spd * 0.75f * Time.deltaTime, transform.position.z);
                 break;
             case State.Die:
                 // death animation, freeze player
@@ -66,5 +94,10 @@ public class Boss : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void Damage()
+    {
+
     }
 }
