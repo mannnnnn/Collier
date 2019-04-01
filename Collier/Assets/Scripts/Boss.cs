@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -92,6 +94,32 @@ public class Boss : MonoBehaviour
                 // sits at top of map
                 if (health <= 0)
                 {
+                    player.GetComponent<Player>().win = true;
+                 GameObject ui = GameObject.FindGameObjectWithTag("UI");
+                    ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
+
+                    bool unlockNext = false;
+                    for (int i = 1; i <= SaveLoad.LEVELS; i++)
+                    {
+                        for (int j = 1; j <= SaveLoad.STAGES; j++)
+                        {
+                            string key = $"Level_{i}_{j}";
+                            if (unlockNext)
+                            {
+                                SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
+                                PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
+                                unlockNext = false;
+                            }
+                            if (key == SceneManager.GetActiveScene().name)
+                            {
+                                unlockNext = true;
+                            }
+                        }
+                    }
+                Destroy(gameObject);
+                gameObject.tag = "Boss";
+                gameObject.layer = LayerMask.NameToLayer("Enemy");
+                break;
                     state = State.Die;
                 }
                 Color c = GetComponent<SpriteRenderer>().color;
@@ -100,11 +128,32 @@ public class Boss : MonoBehaviour
                 gameObject.layer = LayerMask.NameToLayer("Enemy");
                 break;
             case State.Die:
-                // death animation, freeze player
+                /** death animation, freeze player
                 player.GetComponent<Player>().win = true;
+                 GameObject ui = GameObject.FindGameObjectWithTag("UI");
+                    ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
+
+                    bool unlockNext = false;
+                    for (int i = 1; i <= SaveLoad.LEVELS; i++)
+                    {
+                        for (int j = 1; j <= SaveLoad.STAGES; j++)
+                        {
+                            string key = $"Level_{i}_{j}";
+                            if (unlockNext)
+                            {
+                                SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
+                                PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
+                                unlockNext = false;
+                            }
+                            if (key == SceneManager.GetActiveScene().name)
+                            {
+                                unlockNext = true;
+                            }
+                        }
+                    }
                 Destroy(gameObject);
                 gameObject.tag = "Boss";
-                gameObject.layer = LayerMask.NameToLayer("Enemy");
+                gameObject.layer = LayerMask.NameToLayer("Enemy");**/
                 break;
         }
     }

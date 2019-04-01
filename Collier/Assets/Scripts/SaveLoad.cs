@@ -41,7 +41,7 @@ public class SaveLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (false && Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             for (int i = 1; i <= SaveLoad.LEVELS; i++)
             {
@@ -54,7 +54,7 @@ public class SaveLoad : MonoBehaviour
             }
             loaded = false;
         }
-        if (false && Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             for (int i = 1; i <= SaveLoad.LEVELS; i++)
             {
