@@ -16,6 +16,7 @@ TagManager:
   - ExitButton
   - Platform
   - SceneTransition
+  - Boss
   layers:
   - Default
   - TransparentFX

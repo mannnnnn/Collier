@@ -23,8 +23,15 @@ public class Portal : MonoBehaviour {
     {
         if (col.gameObject.tag == "Player" && GameObject.FindGameObjectWithTag("SceneTransition") == null)
         {
-            Instantiate(trans).GetComponent<StoryTransition>()
-                .Initialize(scene, spr);
+            GameObject go = Instantiate(trans);
+            if (go.GetComponent<SceneTransition>() != null)
+            {
+                go.GetComponent<SceneTransition>().Initialize(scene);
+            }
+            if (go.GetComponent<StoryTransition>() != null)
+            {
+                go.GetComponent<StoryTransition>().Initialize(scene, spr);
+            }
         }
     }
 }

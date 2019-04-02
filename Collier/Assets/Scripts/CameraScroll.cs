@@ -26,7 +26,12 @@ public class CameraScroll : MonoBehaviour
         // find top
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Wall"))
         {
-            float value = go.GetComponent<SpriteRenderer>().bounds.max.y;
+            SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+            if (sr == null)
+            {
+                continue;
+            }
+            float value = sr.bounds.max.y;
             if (value > levelTop)
             {
                 levelTop = value;
@@ -75,6 +80,11 @@ public class CameraScroll : MonoBehaviour
         // move the position of the camera to the calculated value
         speed += acc;
         currentPos += speed;
+        GameObject go = GameObject.Find("Boss");
+        if (go != null)
+        {
+            levelTop = go.transform.position.y;
+        }
         float clampedY = Mathf.Clamp(currentPos.y, levelBottom + cameraSize * 0.5f, levelTop - cameraSize * 0.5f);
         if (currentPos.y > levelTop - cameraSize * 0.5f)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,18 +20,26 @@ public class Player : MonoBehaviour {
     public GameObject cut;
     CutAnimation currentCut;
     Vector2 cutTarget;
-
+    AudioSource dio;
     Rigidbody2D rb;
 
     public GameObject leftWall;
     public GameObject rightWall;
 
     public float driftSpeed = 3;
-
+    //SOUNDS
+    public AudioClip sword1;
+    public AudioClip sword2;
+    public AudioClip sword3;
+    public AudioClip impact1;
+    public AudioClip impact2;
+    public AudioClip impact3;
+    public AudioClip oof;
+    public AudioClip swish;
     Animator anim;
     SpriteRenderer sr;
 
-    bool damaged = false;
+    public bool damaged = false;
     float damageTimer = 0f;
     float damageDuration = 1f;
 
@@ -41,14 +50,22 @@ public class Player : MonoBehaviour {
     public GameObject pain;
 
     bool dead = false;
-    bool win = false;
+    public bool win = false;
     float timer = 0f;
     float duration = 1f;
 
+    int prevWall = 0;
+
     public float spdCap = 10f;
+
+    // updated by Walled()
+    public int wallDirection = 0;
+    public bool letGoToTown = false;
+    public GameObject trans;
 
 	// Use this for initialization
 	void Start () {
+        dio = GetComponent<AudioSource>();
         box = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -57,6 +74,37 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        //Debug.Log("Walled:" + Walled());
+        //Debug.Log("Impact:" + prevWall);
+        if (prevWall != wallDirection && Walled()){
+            int soundSwitch = UnityEngine.Random.Range(1, 4);
+            //Debug.Log("Playing Impact");
+            switch(soundSwitch){
+                case(1): dio.clip = impact1;break;
+                case(2): dio.clip = impact2;break;
+                case(3): dio.clip = impact3;break;
+                default: dio.clip = impact3; break;
+            }
+            dio.Play();
+            if(trans != null){
+            Instantiate(trans).GetComponent<SceneTransition>()
+            .Initialize("1_Town");
+            }
+            
+            ParticleSystem dust =  GetComponent<ParticleSystem>();
+            ParticleSystem.ShapeModule dustShape = dust.shape;
+            if(GetSide() == -1){
+            dustShape.rotation = new Vector3(0,0,270);
+            dust.Play();
+            } else {
+            dustShape.rotation = new Vector3(0,0,90);
+            dust.Play();
+            }
+            
+        }
+        prevWall = wallDirection;
+
+
         if (dead || win)
         {
             timer += Time.deltaTime;
@@ -74,6 +122,25 @@ public class Player : MonoBehaviour {
                 {
                     GameObject ui = GameObject.FindGameObjectWithTag("UI");
                     ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
+
+                    bool unlockNext = false;
+                    for (int i = 1; i <= SaveLoad.LEVELS; i++)
+                    {
+                        for (int j = 1; j <= SaveLoad.STAGES; j++)
+                        {
+                            string key = $"Level_{i}_{j}";
+                            if (unlockNext)
+                            {
+                                SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
+                                PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
+                                unlockNext = false;
+                            }
+                            if (key == SceneManager.GetActiveScene().name)
+                            {
+                                unlockNext = true;
+                            }
+                        }
+                    }
                 }
 
             }
@@ -97,13 +164,13 @@ public class Player : MonoBehaviour {
             sr.flipX = true;
         }
         RaycastHit2D? hit = Raycast((Vector2)transform.position
-            + Vector2.down * box.bounds.extents.y * 0.5f, "Hazard");
+            + Vector2.down * box.bounds.extents.y * 0.5f, "Hazard", true);
         RaycastHit2D? enemyHitDown = Raycast((Vector2)transform.position
-            + Vector2.down * box.bounds.extents.y * 0.5f, "Enemy");
+            + Vector2.down * box.bounds.extents.y * 0.5f, "Enemy", true);
         RaycastHit2D? enemyHitLeft = Raycast((Vector2)transform.position
-           + Vector2.left * box.bounds.extents.y * 1f, "Enemy");
+           + Vector2.left * box.bounds.extents.y * 1f, "Enemy", true);
         RaycastHit2D? enemyHitRight = Raycast((Vector2)transform.position
-           + Vector2.right * box.bounds.extents.y * 1f, "Enemy");
+           + Vector2.right * box.bounds.extents.y * 1f, "Enemy", true);
         damageTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
         invframesTimer = Mathf.MoveTowards(damageTimer, 0, Time.deltaTime);
         if (hit != null || enemyHitDown != null || enemyHitLeft != null || enemyHitRight != null)
@@ -113,7 +180,7 @@ public class Player : MonoBehaviour {
         // if not in contact with obstacle, decrement invincibilty timer
         else
         {
-            if (damaged && state == State.WALL)
+            if (damaged && state != State.WALL)
             {
                 invframesTimer = invFramesDur;
                 inv = true;
@@ -221,9 +288,31 @@ public class Player : MonoBehaviour {
             (end - start).magnitude, LayerMask.GetMask("Enemy"));
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.gameObject.tag == "Enemy")
+            if (hit.collider.gameObject.tag == "Enemy" 
+                || hit.collider.gameObject.tag == "Boss")
             {
-                Destroy(hit.collider.gameObject);
+                int soundSwitch = UnityEngine.Random.Range(1, 4);
+                switch(soundSwitch){
+                    case(1): dio.clip = sword1;break;
+                    case(2): dio.clip = sword2;break;
+                    case(3): dio.clip = sword3;break;
+                    default: dio.clip = sword3; break;
+                }
+
+                dio.Play();
+                if (hit.collider.gameObject.tag == "Boss")
+                {
+                    GameObject.Find("DemonKing").GetComponent<Boss>().Damage();
+                }
+                else
+                {
+                    ParticleSystem explode = hit.collider.gameObject.GetComponent<ParticleSystem>();
+                    explode.Play();
+                    hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    float totalDuration = explode.duration + explode.startLifetime;
+                    Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
+                    Destroy(hit.collider.gameObject, totalDuration);
+                }
                 Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
                 coins.coins++;
             }
@@ -232,11 +321,17 @@ public class Player : MonoBehaviour {
 
     void Damage(RaycastHit2D hit)
     {
+        if (hit.collider.gameObject.tag == "Boss")
+        {
+            return;
+        }
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
         if (!damaged && health.health > 0 && state != State.CUT)
         {
             damageTimer = damageDuration;
             damaged = true;
+            dio.clip = oof;
+            dio.Play();
             // set player to move away from obstacle
             rb.velocity = new Vector2(5f * -GetSide(),
                 5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
@@ -302,6 +397,9 @@ public class Player : MonoBehaviour {
     // start the cut animation
     void Cut(Vector2 start, Vector2 end)
     {
+        letGoToTown = true;
+        dio.clip = swish;
+        dio.Play();
         state = State.CUT;
         rb.velocity = Vector2.zero;
         cutTarget = end;
@@ -331,13 +429,30 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.gameObject.tag == "Goal" && SceneManager.GetActiveScene().name != "1_Town")
+        if (col.collider.gameObject.tag == "Goal")
         {
-            if (!damaged && !dead)
+            if (!damaged && !dead && InLevel())
             {
                 win = true;
             }
+            if (SceneManager.GetActiveScene().name == "Level_4_1")
+            {
+                Destroy(GameObject.Find("Final_Boss_Artifact 1"));
+                transform.Find("GlowOn").gameObject.SetActive(true);
+                GameObject.Find("DemonKing").GetComponent<Boss>().GotArtifactBadGameThanks();
+            }
         }
+    }
+
+    public static bool InLevel()
+    {
+        return SceneManager.GetActiveScene().name != "1_Town"
+                && SceneManager.GetActiveScene().name != "Level_Select_1"
+                && SceneManager.GetActiveScene().name != "Level_Select_2"
+                && SceneManager.GetActiveScene().name != "Level_Select_3"
+                && SceneManager.GetActiveScene().name != "Level_Select_4"
+                && SceneManager.GetActiveScene().name != "Level_Select_5"
+                && SceneManager.GetActiveScene().name != "Level_4_1";
     }
 
     bool Grounded()
@@ -347,7 +462,12 @@ public class Player : MonoBehaviour {
     }
     bool Walled()
     {
-        return Raycast((Vector2)transform.position + Vector2.left * box.bounds.extents.x * 1.3f) != null ||
-            Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null;
+        if (Raycast((Vector2)transform.position + Vector2.left * box.bounds.extents.x * 1.3f) != null) {
+            wallDirection = -1;
+        }
+        if (Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null) {
+            wallDirection = 1;
+        }
+        return  wallDirection != 0;
     }
 }

@@ -18,8 +18,7 @@ public class Defeat : MonoBehaviour {
 
     public void Restart()
     {
-        Instantiate(trans).GetComponent<SceneTransition>()
-            .Initialize(SceneManager.GetActiveScene().name);
+        Instantiate(trans).GetComponent<SceneTransition>().Initialize(SceneManager.GetActiveScene().name);
     }
 
     public void Exit()
