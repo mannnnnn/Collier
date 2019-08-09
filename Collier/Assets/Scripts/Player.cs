@@ -370,6 +370,9 @@ public class Player : MonoBehaviour {
         {
             return false;
         }
+		if( !(Grounded() || Walled2() || Platform())){
+			return false;
+		}
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
         RaycastHit2D? raycast = Raycast((Vector2)transform.position +
@@ -377,9 +380,10 @@ public class Player : MonoBehaviour {
         // if no collisions, go to target position
         if (raycast == null)
         {
+			
             Vector2 end = (Vector2)transform.position +
                 direction * maxCutLength;
-            Cut(transform.position, end);
+            Cut(transform.position, end);		
             return true;
         }
         // otherwise if far enough away, go to it
@@ -443,6 +447,19 @@ public class Player : MonoBehaviour {
             }
         }
     }
+	
+	bool Platform()
+    {
+		Collider col = GetComponent<Collider>();
+		if(col != null){
+			if (col.gameObject.tag == "Platform"){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		return false;
+    }
 
     public static bool InLevel()
     {
@@ -467,7 +484,18 @@ public class Player : MonoBehaviour {
         }
         if (Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null) {
             wallDirection = 1;
-        }
+		}
         return  wallDirection != 0;
     }
+	
+	bool Walled2(){
+		if (Raycast((Vector2)transform.position + Vector2.left * box.bounds.extents.x * 1.3f) != null) {
+            return true;
+        }else if (Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null) {
+            return true;
+        }else{
+			return false;
+		}
+    }
+		
 }
