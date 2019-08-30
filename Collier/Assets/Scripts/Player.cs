@@ -70,18 +70,27 @@ public class Player : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+		InvokeRepeating("Scary", .1f, .09f);
     }
+
+	public float pos = 0;
 
     // Update is called once per frame
     void Update() {
         //Debug.Log("Walled:" + Walled());
         //Debug.Log("Impact:" + prevWall);
-        Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
-        if (health.health <= 0)
-              {
-                  box.isTrigger = true;
-                  dead = true;
-            }
+		
+		Health health = GetComponent<Health>();
+		if(health != null){
+			if (health.gameObject.tag == "Health"){
+       // Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
+				if (health.health <= 0)
+					  {
+						  box.isTrigger = true;
+						  dead = true;
+					}
+			}
+		}
 
         if (prevWall != wallDirection && Walled()){
             int soundSwitch = UnityEngine.Random.Range(1, 4);
@@ -389,6 +398,9 @@ public class Player : MonoBehaviour {
         {
             return false;
         }
+		if( !(Grounded() || Walled2() || Platform() || Platformed())){
+			return false;
+		}
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
         RaycastHit2D? raycast = Raycast((Vector2)transform.position +
@@ -514,4 +526,15 @@ public class Player : MonoBehaviour {
 		}
     }
 
+	bool Platformed(){
+		if(this.pos == rb.position.y && state == State.WALL){
+			return true;
+		}else{
+			return false;
+		}
+	}	
+	
+	void Scary(){
+		this.pos = rb.position.y;	
+	}
 }
