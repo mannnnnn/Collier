@@ -10,18 +10,20 @@ public class Heart : MonoBehaviour {
 
     public Sprite[] fullSprites;
     public Sprite[] deadSprites;
+    public Sprite[] poisonedSprites;
 
     int index = 0;
 
     Image image;
 
     public bool full = false;
+    public bool poisoned = false;
 
 	// Use this for initialization
 	void Start () {
         image = GetComponent<Image>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
@@ -30,12 +32,14 @@ public class Heart : MonoBehaviour {
             timer = 0f;
             index = (index + 1) % fullSprites.Length;
         }
-        if (full)
+        if (poisoned){
+            image.sprite = poisonedSprites[index];
+        }
+        else if (full)
         {
             image.sprite = fullSprites[index];
         }
-        else
-        {
+        else {
             image.sprite = deadSprites[index];
         }
     }

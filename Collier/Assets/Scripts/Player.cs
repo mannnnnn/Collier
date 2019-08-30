@@ -90,7 +90,7 @@ public class Player : MonoBehaviour {
             Instantiate(trans).GetComponent<SceneTransition>()
             .Initialize("1_Town");
             }
-            
+
             ParticleSystem dust =  GetComponent<ParticleSystem>();
             ParticleSystem.ShapeModule dustShape = dust.shape;
             if(GetSide() == -1){
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour {
             dustShape.rotation = new Vector3(0,0,90);
             dust.Play();
             }
-            
+
         }
         prevWall = wallDirection;
 
@@ -288,7 +288,7 @@ public class Player : MonoBehaviour {
             (end - start).magnitude, LayerMask.GetMask("Enemy"));
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.gameObject.tag == "Enemy" 
+            if (hit.collider.gameObject.tag == "Enemy"
                 || hit.collider.gameObject.tag == "Boss")
             {
                 int soundSwitch = UnityEngine.Random.Range(1, 4);
@@ -321,32 +321,46 @@ public class Player : MonoBehaviour {
 
     void Damage(RaycastHit2D hit)
     {
-        if (hit.collider.gameObject.tag == "Boss")
-        {
-            return;
-        }
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
-        if (!damaged && health.health > 0 && state != State.CUT)
-        {
-            damageTimer = damageDuration;
-            damaged = true;
-            dio.clip = oof;
-            dio.Play();
-            // set player to move away from obstacle
-            rb.velocity = new Vector2(5f * -GetSide(),
-                5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
-            state = State.HURT;
-            // sparks to indicate pain
-            Instantiate(pain, transform.position + Vector3.back, transform.rotation)
-                .GetComponent<Pain>().Initialize(hit.collider.gameObject);
-            // decrement health
-            health.health--;
-            if (health.health <= 0)
-            {
-                // game over
-                box.isTrigger = true;
-                dead = true;
-            }
+        if (hit.collider.gameObject.tag == "TarHazard"){
+            rb.velocity = new Vector2(rb.velocity.y, 0);
+            //Does no damage, but removes all mobility.
+        }
+        else if(hit.collider.gameObject.tag =="PoisonHazard"){
+          health.poisoned = true;
+        }
+        else if(hit.collider.gameObject.tag == "Antidote"){
+          Debug.Log("antidoes are only 200 pokedollars");
+          health.poisoned = false;
+        }
+        else{
+          if (hit.collider.gameObject.tag == "Boss")
+          {
+              return;
+          }
+          if (!damaged && health.health > 0 && state != State.CUT)
+          {
+              Debug.Log("atest");
+              damageTimer = damageDuration;
+              damaged = true;
+              dio.clip = oof;
+              dio.Play();
+              // set player to move away from obstacle
+              rb.velocity = new Vector2(5f * -GetSide(),
+                  5f * Mathf.Max(Mathf.Sign(transform.position.y * hit.collider.transform.position.y), 0));
+              state = State.HURT;
+              // sparks to indicate pain
+              Instantiate(pain, transform.position + Vector3.back, transform.rotation)
+                  .GetComponent<Pain>().Initialize(hit.collider.gameObject);
+              // decrement health
+              health.health--;
+              if (health.health <= 0)
+              {
+                  // game over
+                  box.isTrigger = true;
+                  dead = true;
+              }
+          }
         }
     }
 
@@ -429,6 +443,7 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        Debug.Log("test " + col.collider.gameObject.tag);
         if (col.collider.gameObject.tag == "Goal")
         {
             if (!damaged && !dead && InLevel())
@@ -442,6 +457,19 @@ public class Player : MonoBehaviour {
                 GameObject.Find("DemonKing").GetComponent<Boss>().GotArtifactBadGameThanks();
             }
         }
+    }
+
+	bool Platform()
+    {
+		Collider col = GetComponent<Collider>();
+		if(col != null){
+			if (col.gameObject.tag == "Platform"){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		return false;
     }
 
     public static bool InLevel()
@@ -470,4 +498,15 @@ public class Player : MonoBehaviour {
         }
         return  wallDirection != 0;
     }
+
+	bool Walled2(){
+		if (Raycast((Vector2)transform.position + Vector2.left * box.bounds.extents.x * 1.3f) != null) {
+            return true;
+        }else if (Raycast((Vector2)transform.position + Vector2.right * box.bounds.extents.x * 1.3f) != null) {
+            return true;
+        }else{
+			return false;
+		}
+    }
+
 }

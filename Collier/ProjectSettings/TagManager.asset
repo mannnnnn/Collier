@@ -17,6 +17,9 @@ TagManager:
   - Platform
   - SceneTransition
   - Boss
+  - TarHazard
+  - PoisonHazard
+  - Antidote
   layers:
   - Default
   - TransparentFX
