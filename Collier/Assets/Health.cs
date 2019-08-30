@@ -9,6 +9,11 @@ public class Health : MonoBehaviour {
     public bool poisoned = false;
     Heart[] hearts;
     public float timer = 0f;
+
+    private int poisonedHealthStart = -1;
+    //track the health when the player was poisoned
+    //If the player hits an obstacle or anything that reduces that health, reset it and move the poison down.
+
     void Start()
     {
         hearts = GetComponentsInChildren<Heart>();
@@ -16,26 +21,41 @@ public class Health : MonoBehaviour {
 
     void Update()
     {
+
+      if(health < poisonedHealthStart){
+        hearts[health].poisoned = false; //update state of dead heart 
+        hearts[health].full = false;
+        hearts[health].poisoned = true; //update state of new poisoned heart
+      }
+
         if (poisoned){
           timer += 0.01f;
-          Debug.Log("here " + timer);
           if (timer > 2f){
             health--;
             timer = 0f;
+            poisoned = false; //Poison changed to only remove 1 heart max
+            hearts[health].poisoned = false; //update state of dead heart 
+            hearts[health].full = false;
           }
         }
         else{
           timer = 0f;
         }
+
         for (int i = 0; i < hearts.Length; i++)
         {
             if(poisoned){
                 if (i == health-1){
-                  Debug.Log(" i and health here " + health);
                   hearts[i].poisoned = true;
+                } 
+                else{
+                  hearts[i].poisoned = false;
+                  hearts[i].full = i < health;
                 }
-            }
+            } else {
             hearts[i].full = i < health;
+            hearts[i].poisoned = false;
+            }
         }
     }
 }

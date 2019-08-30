@@ -76,6 +76,13 @@ public class Player : MonoBehaviour {
     void Update() {
         //Debug.Log("Walled:" + Walled());
         //Debug.Log("Impact:" + prevWall);
+        Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
+        if (health.health <= 0)
+              {
+                  box.isTrigger = true;
+                  dead = true;
+            }
+
         if (prevWall != wallDirection && Walled()){
             int soundSwitch = UnityEngine.Random.Range(1, 4);
             //Debug.Log("Playing Impact");
@@ -330,7 +337,6 @@ public class Player : MonoBehaviour {
           health.poisoned = true;
         }
         else if(hit.collider.gameObject.tag == "Antidote"){
-          Debug.Log("antidoes are only 200 pokedollars");
           health.poisoned = false;
         }
         else{
@@ -340,7 +346,6 @@ public class Player : MonoBehaviour {
           }
           if (!damaged && health.health > 0 && state != State.CUT)
           {
-              Debug.Log("atest");
               damageTimer = damageDuration;
               damaged = true;
               dio.clip = oof;

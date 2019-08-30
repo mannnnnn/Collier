@@ -10,7 +10,6 @@ public class Heart : MonoBehaviour {
 
     public Sprite[] fullSprites;
     public Sprite[] deadSprites;
-    public Sprite[] poisonedSprites;
 
     int index = 0;
 
@@ -30,17 +29,20 @@ public class Heart : MonoBehaviour {
         if (timer > duration)
         {
             timer = 0f;
-            index = (index + 1) % fullSprites.Length;
         }
+
+
         if (poisoned){
-            image.sprite = poisonedSprites[index];
+            image.color = Color.green;
         }
         else if (full)
         {
             image.sprite = fullSprites[index];
+             image.color = Color.white;
         }
         else {
             image.sprite = deadSprites[index];
+            image.color = Color.white;
         }
     }
 }
