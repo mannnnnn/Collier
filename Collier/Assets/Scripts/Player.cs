@@ -465,6 +465,7 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        Debug.Log("test " + col.collider.gameObject.tag);
         if (col.collider.gameObject.tag == "Goal")
         {
             if (!damaged && !dead && InLevel())

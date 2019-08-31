@@ -36,8 +36,6 @@ public class Urn : MonoBehaviour
         }
         if (col.gameObject.tag == "Player" && GameObject.FindGameObjectWithTag("SceneTransition") == null)
         {
-			PlayerPrefs.SetInt("level", level);
-			PlayerPrefs.SetInt("stage", stage);
             GameObject go = Instantiate(trans);
             if (go.GetComponent<SceneTransition>() != null)
             {
