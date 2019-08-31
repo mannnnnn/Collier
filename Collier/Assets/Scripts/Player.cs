@@ -62,9 +62,12 @@ public class Player : MonoBehaviour {
     public int wallDirection = 0;
     public bool letGoToTown = false;
     public GameObject trans;
-    
+
     // boss fight
     public bool hasSword = false;
+
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -73,7 +76,10 @@ public class Player : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+		InvokeRepeating("Scary", .1f, .09f);
     }
+
+	public float pos = 0;
 
     // Update is called once per frame
     void Update() {
@@ -87,7 +93,7 @@ public class Player : MonoBehaviour {
                   dead = true;
             }
         }
-        
+
         if (prevWall != wallDirection && Walled()){
             int soundSwitch = UnityEngine.Random.Range(1, 4);
             //Debug.Log("Playing Impact");
@@ -325,8 +331,9 @@ public class Player : MonoBehaviour {
                     Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
                     Destroy(hit.collider.gameObject, totalDuration);
                 }
-                Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
-                coins.coins++;
+				Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
+                coins.tempCoins++;
+				coins.coins++;
             }
         }
     }
@@ -398,6 +405,9 @@ public class Player : MonoBehaviour {
         {
             return false;
         }
+		if( !(Grounded() || Walled2() || Platform() || Platformed())){
+			return false;
+		}
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
         RaycastHit2D? raycast = Raycast((Vector2)transform.position +
@@ -457,7 +467,6 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("test " + col.collider.gameObject.tag);
         if (col.collider.gameObject.tag == "Goal")
         {
             if (!damaged && !dead && InLevel())
@@ -523,4 +532,15 @@ public class Player : MonoBehaviour {
 		}
     }
 
+	bool Platformed(){
+		if(this.pos == rb.position.y && state == State.WALL){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	void Scary(){
+		this.pos = rb.position.y;
+	}
 }
