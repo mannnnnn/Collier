@@ -329,6 +329,7 @@ public class Player : MonoBehaviour {
                     Destroy(hit.collider.gameObject, totalDuration);
                 }
                 Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
+				coins.tempCoins++;
                 coins.coins++;
             }
         }
