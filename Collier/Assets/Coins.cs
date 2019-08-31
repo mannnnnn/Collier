@@ -7,7 +7,6 @@ public class Coins : MonoBehaviour {
 
     Text text;
     public int coins = 0;
-    public int tempCoins = 0;
 
     public Sprite[] sprites;
 
@@ -22,7 +21,6 @@ public class Coins : MonoBehaviour {
     void Start () {
         text = GetComponentInChildren<Text>();
         image = GetComponentInChildren<Image>();
-		coins = PlayerPrefs.GetInt("coins");
     }
 	
 	// Update is called once per frame
