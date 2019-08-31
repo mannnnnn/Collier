@@ -62,6 +62,9 @@ public class Player : MonoBehaviour {
     public int wallDirection = 0;
     public bool letGoToTown = false;
     public GameObject trans;
+    
+    // boss fight
+    public bool hasSword = false;
 
 	// Use this for initialization
 	void Start () {
@@ -76,13 +79,15 @@ public class Player : MonoBehaviour {
     void Update() {
         //Debug.Log("Walled:" + Walled());
         //Debug.Log("Impact:" + prevWall);
+        if(!win && !dead){
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
-        if (health.health <= 0)
+        if (health != null && health.health <= 0)
               {
                   box.isTrigger = true;
                   dead = true;
             }
-
+        }
+        
         if (prevWall != wallDirection && Walled()){
             int soundSwitch = UnityEngine.Random.Range(1, 4);
             //Debug.Log("Playing Impact");
@@ -328,6 +333,10 @@ public class Player : MonoBehaviour {
 
     void Damage(RaycastHit2D hit)
     {
+        if(hasSword){
+            return;
+        }
+
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
         if (hit.collider.gameObject.tag == "TarHazard"){
             rb.velocity = new Vector2(rb.velocity.y, 0);

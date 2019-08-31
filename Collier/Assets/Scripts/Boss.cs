@@ -77,6 +77,7 @@ public class Boss : MonoBehaviour
                 break;
             case State.Stop:
                 // pause since the player has the artifact
+                player.GetComponent<Player>().hasSword = true;
                 timer += Time.deltaTime;
                 break;
             case State.MoveUp:
@@ -92,39 +93,40 @@ public class Boss : MonoBehaviour
                 break;
             case State.KillMe:
                 // sits at top of map
-                if (health <= 0)
-                {
-                    player.GetComponent<Player>().win = true;
-                 GameObject ui = GameObject.FindGameObjectWithTag("UI");
-                    ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
+                if (health <= 0){
+                    
+                        Debug.Log("Die!");
+                        player.GetComponent<Player>().win = true;
+                        GameObject ui = GameObject.FindGameObjectWithTag("UI");
+                        ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
 
-                    bool unlockNext = false;
-                    for (int i = 1; i <= SaveLoad.LEVELS; i++)
-                    {
-                        for (int j = 1; j <= SaveLoad.STAGES; j++)
+                        bool unlockNext = false;
+                        for (int i = 1; i <= SaveLoad.LEVELS; i++)
                         {
-                            string key = $"Level_{i}_{j}";
-                            if (unlockNext)
+                            for (int j = 1; j <= SaveLoad.STAGES; j++)
                             {
-                                SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
-                                PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
-                                unlockNext = false;
+                                string key = $"Level_{i}_{j}";
+                                if (unlockNext)
+                                {
+                                    SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
+                                    PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
+                                    unlockNext = false;
+                                }
+                                if (key == SceneManager.GetActiveScene().name)
+                                {
+                                    unlockNext = true;
+                                }
                             }
-                            if (key == SceneManager.GetActiveScene().name)
-                            {
-                                unlockNext = true;
-                            }
-                        }
-                    }
-                Destroy(gameObject);
-                gameObject.tag = "Boss";
-                gameObject.layer = LayerMask.NameToLayer("Enemy");
-                break;
-                    state = State.Die;
+                         }
+
+                        Destroy(gameObject);
+                        gameObject.tag = "Boss";
+                        gameObject.layer = LayerMask.NameToLayer("Enemy");
+                        break;
+                            state = State.Die;
                 }
-                Color c = GetComponent<SpriteRenderer>().color;
-                GetComponent<SpriteRenderer>().color = new Color(c.r, c.g, c.b, health / 3f);
                 gameObject.tag = "Boss";
+                
                 gameObject.layer = LayerMask.NameToLayer("Enemy");
                 break;
             case State.Die:
@@ -161,6 +163,7 @@ public class Boss : MonoBehaviour
     public int health = 3;
     public void Damage()
     {
+        Debug.Log("Bam!");
         if (inv <= 0)
         {
             health--;
@@ -171,7 +174,12 @@ public class Boss : MonoBehaviour
     bool sword = false;
     public void GotArtifactBadGameThanks()
     {
-        Debug.Log("OIAHSDJAOIHDAOHDIHWOPIADHAOPIDWHUOPIADHUAPIDHBUAIHOIWPUAHD");
         sword = true;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject == player && player.GetComponent<Player>().hasSword && inv <= 0)
+           Damage();
     }
 }
