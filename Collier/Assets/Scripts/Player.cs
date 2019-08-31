@@ -79,7 +79,7 @@ public class Player : MonoBehaviour {
     void Update() {
         //Debug.Log("Walled:" + Walled());
         //Debug.Log("Impact:" + prevWall);
-        if(!win && !dead){
+        if(!win && !dead && GameObject.FindGameObjectWithTag("Health")!=null){
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
         if (health != null && health.health <= 0)
               {
@@ -457,7 +457,6 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("test " + col.collider.gameObject.tag);
         if (col.collider.gameObject.tag == "Goal")
         {
             if (!damaged && !dead && InLevel())

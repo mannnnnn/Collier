@@ -74,4 +74,20 @@ public class Victory : MonoBehaviour {
         Instantiate(trans).GetComponent<SceneTransition>()
             .Initialize("1_Town");
     }
+	
+	public void NextLevel()
+    {
+		PlayerPrefs.SetInt("coins",coins);
+		if(PlayerPrefs.GetInt("stage")==1){
+			PlayerPrefs.SetInt("stage", 2);
+			Instantiate(trans).GetComponent<SceneTransition>()
+            .Initialize("Level_" + PlayerPrefs.GetInt("level") +"_2");
+		}else{
+			PlayerPrefs.SetInt("stage", 1);
+			PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
+			Instantiate(trans).GetComponent<SceneTransition>()
+            .Initialize("Level_" + PlayerPrefs.GetInt("level") +"_1");
+		}
+
+    }
 }
