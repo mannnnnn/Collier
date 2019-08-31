@@ -18,6 +18,7 @@ public class Victory : MonoBehaviour {
 
     int health;
     int coins;
+	int tempCoins;
 
     // Use this for initialization
     void Start () {
@@ -25,6 +26,7 @@ public class Victory : MonoBehaviour {
         Coins c = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
         health = h.health;
         coins = c.coins;
+		tempCoins = c.tempCoins;
         h.gameObject.SetActive(false);
         c.gameObject.SetActive(false);
     }
@@ -44,7 +46,7 @@ public class Victory : MonoBehaviour {
                     PlayerPrefs.SetInt(SceneManager.GetActiveScene().name, index);
                     break;
                 case 2:
-                    if (health + coins > Mathf.CeilToInt(maxScore / 2f))
+                    if (health + tempCoins > Mathf.CeilToInt(maxScore / 2f))
                     {
                         transform.Find("Star2").GetComponent<Image>().sprite = star2;
                         SaveLoad.levelUnlocked[SceneManager.GetActiveScene().name] = index;
@@ -52,7 +54,7 @@ public class Victory : MonoBehaviour {
                     }
                     break;
                 case 3:
-                    if (health + coins >= maxScore)
+                    if (health + tempCoins >= maxScore)
                     {
                         transform.Find("Star3").GetComponent<Image>().sprite = star3;
                         SaveLoad.levelUnlocked[SceneManager.GetActiveScene().name] = index;
@@ -65,12 +67,14 @@ public class Victory : MonoBehaviour {
 
     public void Restart()
     {
+		PlayerPrefs.SetInt("coins",coins);
         Instantiate(trans).GetComponent<SceneTransition>()
             .Initialize(SceneManager.GetActiveScene().name);
     }
 
     public void Exit()
     {
+		PlayerPrefs.SetInt("coins",coins);
         Instantiate(trans).GetComponent<SceneTransition>()
             .Initialize("1_Town");
     }

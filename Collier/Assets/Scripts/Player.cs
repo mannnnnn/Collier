@@ -63,6 +63,9 @@ public class Player : MonoBehaviour {
     public bool letGoToTown = false;
     public GameObject trans;
 
+
+
+	
 	// Use this for initialization
 	void Start () {
         dio = GetComponent<AudioSource>();
@@ -329,8 +332,9 @@ public class Player : MonoBehaviour {
                     Destroy(hit.collider.gameObject.GetComponentInChildren<BoxCollider2D>());
                     Destroy(hit.collider.gameObject, totalDuration);
                 }
-                Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
-                coins.coins++;
+				Coins coins = GameObject.FindGameObjectWithTag("Coins").GetComponent<Coins>();
+                coins.tempCoins++;
+				coins.coins++;
             }
         }
     }
