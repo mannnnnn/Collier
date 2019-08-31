@@ -66,6 +66,8 @@ public class Player : MonoBehaviour {
     // boss fight
     public bool hasSword = false;
 
+	public float pos = 0;
+	
 	// Use this for initialization
 	void Start () {
         dio = GetComponent<AudioSource>();
@@ -73,6 +75,7 @@ public class Player : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+		InvokeRepeating("Scary", .1f, .09f);
     }
 
     // Update is called once per frame
@@ -398,6 +401,9 @@ public class Player : MonoBehaviour {
         {
             return false;
         }
+		if( !(Grounded() || Walled2() || Platform() || Platformed())){
+			return false;
+		}
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
         RaycastHit2D? raycast = Raycast((Vector2)transform.position +
@@ -521,5 +527,17 @@ public class Player : MonoBehaviour {
 			return false;
 		}
     }
+	
+	bool Platformed(){
+		if(this.pos == rb.position.y && state == State.WALL){
+			return true;
+		}else{
+			return false;
+		}
+	}	
+
+	void Scary(){
+		this.pos = rb.position.y;	
+	}
 
 }
