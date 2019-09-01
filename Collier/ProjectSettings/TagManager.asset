@@ -21,6 +21,7 @@ TagManager:
   - PoisonHazard
   - Antidote
   - IceHazard
+  - Spirit
   layers:
   - Default
   - TransparentFX

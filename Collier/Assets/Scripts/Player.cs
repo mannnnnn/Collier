@@ -21,7 +21,8 @@ public class Player : MonoBehaviour {
     CutAnimation currentCut;
     Vector2 cutTarget;
     AudioSource dio;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
+     public Rigidbody2D spiritrb;
 
     public GameObject leftWall;
     public GameObject rightWall;
@@ -36,6 +37,8 @@ public class Player : MonoBehaviour {
     public AudioClip impact3;
     public AudioClip oof;
     public AudioClip swish;
+    public bool spirit = false;
+    public bool evil = false;
     Animator anim;
     SpriteRenderer sr;
 
@@ -62,6 +65,7 @@ public class Player : MonoBehaviour {
     public int wallDirection = 0;
     public bool letGoToTown = false;
     public GameObject trans;
+     public GameObject player;
     
     // boss fight
     public bool hasSword = false;
@@ -76,12 +80,25 @@ public class Player : MonoBehaviour {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 		InvokeRepeating("Scary", .1f, .09f);
+        if(spirit){
+            player = GameObject.Find("Player");
+            spiritrb = player. GetComponent<Rigidbody2D>();
+        }
     }
 
     // Update is called once per frame
     void Update() {
-        //Debug.Log("Walled:" + Walled());
-        //Debug.Log("Impact:" + prevWall);
+       
+
+        if(spirit){
+            state = player.GetComponent<Player>().state;
+            win = false;
+            dead = false;
+            transform.position = new Vector2(transform.position.x, player.transform.position.y);
+            //transform.position.x = player.transform.position.x;
+        }
+
+
         if(!win && !dead && GameObject.FindGameObjectWithTag("Health")!=null){
         Health health = GameObject.FindGameObjectWithTag("Health").GetComponent<Health>();
         if (health != null && health.health <= 0)
@@ -122,42 +139,46 @@ public class Player : MonoBehaviour {
 
         if (dead || win)
         {
-            timer += Time.deltaTime;
-            if (timer > duration)
-            {
-                GameObject.FindGameObjectWithTag("ExitButton")?.SetActive(false);
-                if (dead)
+            if(spirit){
+                Debug.Log("buy");
+                Destroy(gameObject);
+            } else {
+                timer += Time.deltaTime;
+                if (timer > duration)
                 {
-                    // pull the trigger piglet
-                    GameObject ui = GameObject.FindGameObjectWithTag("UI");
-                    ui.GetComponentInChildren<Defeat>(true).gameObject.SetActive(true);
-                    Destroy(gameObject);
-                }
-                if (win)
-                {
-                    GameObject ui = GameObject.FindGameObjectWithTag("UI");
-                    ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
-
-                    bool unlockNext = false;
-                    for (int i = 1; i <= SaveLoad.LEVELS; i++)
+                    GameObject.FindGameObjectWithTag("ExitButton")?.SetActive(false);
+                    if (dead)
                     {
-                        for (int j = 1; j <= SaveLoad.STAGES; j++)
+                        // pull the trigger piglet
+                        GameObject ui = GameObject.FindGameObjectWithTag("UI");
+                        ui.GetComponentInChildren<Defeat>(true).gameObject.SetActive(true);
+                        Destroy(gameObject);
+                    }
+                    if (win)
+                    {
+                        GameObject ui = GameObject.FindGameObjectWithTag("UI");
+                        ui.GetComponentInChildren<Victory>(true).gameObject.SetActive(true);
+
+                        bool unlockNext = false;
+                        for (int i = 1; i <= SaveLoad.LEVELS; i++)
                         {
-                            string key = $"Level_{i}_{j}";
-                            if (unlockNext)
+                            for (int j = 1; j <= SaveLoad.STAGES; j++)
                             {
-                                SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
-                                PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
-                                unlockNext = false;
-                            }
-                            if (key == SceneManager.GetActiveScene().name)
-                            {
-                                unlockNext = true;
+                                string key = $"Level_{i}_{j}";
+                                if (unlockNext)
+                                {
+                                    SaveLoad.levelUnlocked[key] = Math.Max(0, SaveLoad.levelUnlocked[key]);
+                                    PlayerPrefs.SetInt(key, Math.Max(0, SaveLoad.levelUnlocked[key]));
+                                    unlockNext = false;
+                                }
+                                if (key == SceneManager.GetActiveScene().name)
+                                {
+                                    unlockNext = true;
+                                }
                             }
                         }
                     }
                 }
-
             }
         }
         Vector2 pos = transform.position;
@@ -207,6 +228,9 @@ public class Player : MonoBehaviour {
             damaged = false;
         }
 
+
+if(spirit)
+Debug.Log(state);
         switch (state)
         {
             case State.FALL:
@@ -293,6 +317,11 @@ public class Player : MonoBehaviour {
         if (state == State.CUT)
         {
             rb.velocity = Vector2.zero;
+        }
+
+
+        if(spirit){
+            rb.velocity = spiritrb.velocity;
         }
 	}
 
@@ -402,8 +431,47 @@ public class Player : MonoBehaviour {
         return 1;
     }
 
+    IEnumerator Pause(Vector2 direction)
+    {
+        yield return new WaitForSeconds(1);
+        // we check a bit beyond where we want to land
+        float dist = maxCutLength + box.bounds.extents.x;
+
+        if(spirit && !evil){
+            direction = new Vector2(direction.x*-1, direction.y);
+        } else if(evil){
+           
+            direction = new Vector2(transform.position.x- player.transform.position.x, transform.position.y -player.transform.position.y);
+        }
+
+        RaycastHit2D? raycast = Raycast((Vector2)transform.position + direction, "Wall", true);
+
+
+        // if no collisions, go to target position
+        if (raycast == null)
+        {
+            Vector2 end = (Vector2)transform.position +
+                direction * maxCutLength;
+            Cut(transform.position, end);
+        }
+        // otherwise if far enough away, go to it
+        else if ((raycast.Value.point - (Vector2)transform.position).magnitude > minCutLength)
+        {
+            float freeDist = Mathf.MoveTowards((raycast.Value.point - (Vector2)transform.position).magnitude,
+                0, box.bounds.extents.x);
+            Vector2 end = (Vector2)transform.position + direction * freeDist;
+            Cut(transform.position, end);
+        }
+    }
+
+
     bool TryCut(Vector2 direction)
     {
+        if(evil){
+          StartCoroutine(Pause(direction));
+          return true;
+        }
+
         if (dead || win)
         {
             return false;
@@ -413,8 +481,16 @@ public class Player : MonoBehaviour {
 		}
         // we check a bit beyond where we want to land
         float dist = maxCutLength + box.bounds.extents.x;
-        RaycastHit2D? raycast = Raycast((Vector2)transform.position +
-            direction * dist, "Wall", true);
+
+        if(spirit && !evil){
+            direction = new Vector2(direction.x*-1, direction.y);
+        } else if(evil){
+            direction = new Vector2(player.transform.position.x, player.transform.position.y);
+        }
+
+        RaycastHit2D? raycast = Raycast((Vector2)transform.position + direction * dist, "Wall", true);
+
+
         // if no collisions, go to target position
         if (raycast == null)
         {
