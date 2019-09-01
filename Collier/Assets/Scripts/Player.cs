@@ -65,8 +65,8 @@ public class Player : MonoBehaviour {
     public int wallDirection = 0;
     public bool letGoToTown = false;
     public GameObject trans;
-     public GameObject player;
-    
+    public GameObject player;
+    public GameObject spiritPre;
     // boss fight
     public bool hasSword = false;
 
@@ -83,6 +83,7 @@ public class Player : MonoBehaviour {
         if(spirit){
             player = GameObject.Find("Player");
             spiritrb = player. GetComponent<Rigidbody2D>();
+            //Cut(transform.position, new Vector2(-player.transform.position.x,player.transform.position.y));
         }
     }
 
@@ -96,6 +97,7 @@ public class Player : MonoBehaviour {
             dead = false;
             transform.position = new Vector2(transform.position.x, player.transform.position.y);
             //transform.position.x = player.transform.position.x;
+            
         }
 
 
@@ -140,7 +142,6 @@ public class Player : MonoBehaviour {
         if (dead || win)
         {
             if(spirit){
-                Debug.Log("buy");
                 Destroy(gameObject);
             } else {
                 timer += Time.deltaTime;
@@ -228,9 +229,6 @@ public class Player : MonoBehaviour {
             damaged = false;
         }
 
-
-if(spirit)
-Debug.Log(state);
         switch (state)
         {
             case State.FALL:
@@ -375,11 +373,13 @@ Debug.Log(state);
             rb.velocity = new Vector2(rb.velocity.y, 0);
             //Does no damage, but removes all mobility.
         } else if(hit.collider.gameObject.tag == "IceHazard"){
-            Debug.Log("Hitting ice");
             rb.velocity = new Vector2(0, rb.velocity.y*1.3f);
             if(rb.velocity.y > spdCap){
                 rb.velocity = new Vector2(0, spdCap);
             }
+        } else if(hit.collider.gameObject.tag =="Spirit" && !spirit){
+            Destroy(hit.collider.gameObject);
+            Instantiate(spiritPre, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         }
         else if(hit.collider.gameObject.tag =="PoisonHazard"){
           health.poisoned = true;
