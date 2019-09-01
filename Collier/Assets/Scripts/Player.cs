@@ -345,6 +345,12 @@ public class Player : MonoBehaviour {
         if (hit.collider.gameObject.tag == "TarHazard"){
             rb.velocity = new Vector2(rb.velocity.y, 0);
             //Does no damage, but removes all mobility.
+        } else if(hit.collider.gameObject.tag == "IceHazard"){
+            Debug.Log("Hitting ice");
+            rb.velocity = new Vector2(0, rb.velocity.y*1.3f);
+            if(rb.velocity.y > spdCap){
+                rb.velocity = new Vector2(0, spdCap);
+            }
         }
         else if(hit.collider.gameObject.tag =="PoisonHazard"){
           health.poisoned = true;

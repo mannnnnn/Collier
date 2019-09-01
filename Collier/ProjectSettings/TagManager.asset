@@ -20,6 +20,7 @@ TagManager:
   - TarHazard
   - PoisonHazard
   - Antidote
+  - IceHazard
   layers:
   - Default
   - TransparentFX
